@@ -1,5 +1,4 @@
 #include "Application.hpp"
-#include <iostream>
 
 namespace Skye {
 
@@ -13,7 +12,6 @@ namespace Skye {
 
 	void Application::run()
 	{
-		printf("Starting to run...");
 		while (true);
 	}
 }

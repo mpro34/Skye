@@ -1,4 +1,4 @@
-#include <Skye.h>
+#include <Skye.hpp>
 
 class Sandbox : public Skye::Application
 {

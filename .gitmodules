@@ -1,0 +1,3 @@
+[submodule "Skye/vendor/spdlog"]
+	path = Skye/vendor/spdlog
+	url = https://github.com/gabime/spdlog
