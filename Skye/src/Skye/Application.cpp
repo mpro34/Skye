@@ -1,3 +1,4 @@
+#include "skpch.hpp"
 #include "Application.hpp"
 
 #include "Skye/Events/ApplicationEvent.hpp"

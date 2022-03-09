@@ -2,8 +2,6 @@
 
 #include "Skye/Events/Event.hpp"
 
-#include <sstream>
-
 namespace Skye {
 
 	class SKYE_API KeyEvent : public Event

@@ -2,9 +2,6 @@
 
 #include "Skye/Core.hpp"
 
-#include <string>
-#include <functional>
-
 namespace Skye {
 	
 	// Events in Skye are currently blocking, meaning when an event occurs it

@@ -1,3 +1,4 @@
+#include "skpch.hpp"
 #include "Log.hpp"
 
 namespace Skye {
