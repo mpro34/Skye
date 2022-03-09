@@ -2,6 +2,8 @@
 
 #include "Core.hpp"
 #include "Events/Event.hpp"
+#include "Skye/Events/ApplicationEvent.hpp"
+
 #include "Window.hpp"
 
 namespace Skye {
@@ -13,7 +15,11 @@ namespace Skye {
 		virtual ~Application();
 
 		void run();
+
+		void OnEvent(Event& e);
 	private:
+		bool OnWindowClosed(WindowCloseEvent& e);
+
 		std::unique_ptr<Window> m_Window;
 		bool m_Running = true;
 	};
