@@ -4,6 +4,9 @@
     <Filter Include="Skye">
       <UniqueIdentifier>{216A8C7C-0DA1-8D0D-B68D-7310A2A3090F}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Skye\Events">
+      <UniqueIdentifier>{E54623E9-51FC-9BDE-DAF0-95B546A592E2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Skye.hpp" />
@@ -15,6 +18,18 @@
     </ClInclude>
     <ClInclude Include="src\Skye\EntryPoint.hpp">
       <Filter>Skye</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Skye\Events\ApplicationEvent.hpp">
+      <Filter>Skye\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Skye\Events\Event.hpp">
+      <Filter>Skye\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Skye\Events\KeyEvent.hpp">
+      <Filter>Skye\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Skye\Events\MouseEvent.hpp">
+      <Filter>Skye\Events</Filter>
     </ClInclude>
     <ClInclude Include="src\Skye\Log.hpp">
       <Filter>Skye</Filter>

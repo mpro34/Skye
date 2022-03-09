@@ -9,3 +9,5 @@
 #else
 	#error Skye only supports Windows!
 #endif
+
+#define BIT_SHIFT_LEFT(x) (1 << x)
