@@ -2,6 +2,7 @@
 
 #include "Core.hpp"
 #include "Events/Event.hpp"
+#include "Window.hpp"
 
 namespace Skye {
 
@@ -12,6 +13,9 @@ namespace Skye {
 		virtual ~Application();
 
 		void run();
+	private:
+		std::unique_ptr<Window> m_Window;
+		bool m_Running = true;
 	};
 
 	// To be defined in client (sandbox)
