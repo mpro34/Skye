@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h" />
+    <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.hpp" />
     <ClInclude Include="src\Skye.hpp" />
     <ClInclude Include="src\Skye\Application.hpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="src\Skye\Events\KeyEvent.hpp" />
     <ClInclude Include="src\Skye\Events\MouseEvent.hpp" />
     <ClInclude Include="src\Skye\ImGui\ImGuiLayer.hpp" />
+    <ClInclude Include="src\Skye\Input.hpp" />
     <ClInclude Include="src\Skye\Layer.hpp" />
     <ClInclude Include="src\Skye\LayerStack.hpp" />
     <ClInclude Include="src\Skye\Log.hpp" />
@@ -170,6 +172,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp" />
+    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\Skye\Application.cpp" />
     <ClCompile Include="src\Skye\ImGui\ImGuiLayer.cpp" />
