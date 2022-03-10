@@ -15,6 +15,7 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "Skye/vendor/GLFW/include"
 IncludeDir["Glad"] = "Skye/vendor/Glad/include"
 IncludeDir["ImGui"] = "Skye/vendor/imgui"
+IncludeDir["glm"] = "Skye/vendor/glm"
 
 -- Include the GLFW and Glad premake projects inside this premake file!
 include "Skye/vendor/GLFW"
@@ -37,7 +38,9 @@ project "Skye"
 	{
 		"%{prj.name}/src/**.hpp",
         "%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.cpp"
+		"%{prj.name}/src/**.cpp",
+        "%{prj.name}/vendor/glm/glm/**.hpp",
+        "%{prj.name}/vendor/glm/glm/**.inl"
 	}
 
 	includedirs
@@ -46,7 +49,8 @@ project "Skye"
 		"%{prj.name}/vendor/spdlog/include",
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.Glad}",
-        "%{IncludeDir.ImGui}"
+        "%{IncludeDir.ImGui}",
+        "%{IncludeDir.glm}"
 	}
 
     links
@@ -105,7 +109,8 @@ project "Sandbox"
 	includedirs
 	{
 		"Skye/vendor/spdlog/include",
-		"Skye/src"
+		"Skye/src",
+        "%{IncludeDir.glm}"
 	}
 
 	links

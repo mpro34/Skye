@@ -7,3 +7,6 @@
 [submodule "Skye/vendor/imgui"]
 	path = Skye/vendor/imgui
 	url = https://github.com/mpro34/imgui
+[submodule "Skye/vendor/glm"]
+	path = Skye/vendor/glm
+	url = https://github.com/g-truc/glm
