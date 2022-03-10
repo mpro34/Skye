@@ -115,12 +115,15 @@ project "Sandbox"
 
 	filter "configurations:Debug"
 		defines "SK_DEBUG"
+        buildoptions "/MDd"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "SK_RELEASE"
+        buildoptions "/MD"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "SK_DIST"
+        buildoptions "/MD"
 		optimize "On"

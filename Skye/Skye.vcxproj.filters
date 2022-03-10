@@ -40,6 +40,12 @@
     <ClInclude Include="src\Skye\Events\MouseEvent.hpp">
       <Filter>Skye\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\Skye\Layer.hpp">
+      <Filter>Skye</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Skye\LayerStack.hpp">
+      <Filter>Skye</Filter>
+    </ClInclude>
     <ClInclude Include="src\Skye\Log.hpp">
       <Filter>Skye</Filter>
     </ClInclude>
@@ -53,6 +59,12 @@
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\Skye\Application.cpp">
+      <Filter>Skye</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Skye\Layer.cpp">
+      <Filter>Skye</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Skye\LayerStack.cpp">
       <Filter>Skye</Filter>
     </ClCompile>
     <ClCompile Include="src\Skye\Log.cpp">

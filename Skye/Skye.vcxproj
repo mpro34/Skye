@@ -160,6 +160,8 @@
     <ClInclude Include="src\Skye\Events\Event.hpp" />
     <ClInclude Include="src\Skye\Events\KeyEvent.hpp" />
     <ClInclude Include="src\Skye\Events\MouseEvent.hpp" />
+    <ClInclude Include="src\Skye\Layer.hpp" />
+    <ClInclude Include="src\Skye\LayerStack.hpp" />
     <ClInclude Include="src\Skye\Log.hpp" />
     <ClInclude Include="src\Skye\Window.hpp" />
     <ClInclude Include="src\skpch.hpp" />
@@ -167,6 +169,8 @@
   <ItemGroup>
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\Skye\Application.cpp" />
+    <ClCompile Include="src\Skye\Layer.cpp" />
+    <ClCompile Include="src\Skye\LayerStack.cpp" />
     <ClCompile Include="src\Skye\Log.cpp" />
     <ClCompile Include="src\skpch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>

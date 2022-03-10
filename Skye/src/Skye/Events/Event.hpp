@@ -41,6 +41,7 @@ namespace Skye {
 	{
 		friend class EventDispatcher;
 	public:
+		bool m_Handled = false;
 		// pure virtual - must be implemented by children
 		virtual EventType GetEventType() const = 0;
 		virtual const char* GetName() const = 0;
@@ -51,8 +52,6 @@ namespace Skye {
 		{
 			return GetCategoryFlags() & category;
 		}
-	protected:
-		bool m_Handled = false;
 	};
 
 	class EventDispatcher
