@@ -13,9 +13,13 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 -- Include directories relative to root folder (solution directory)
 IncludeDir = {}
 IncludeDir["GLFW"] = "Skye/vendor/GLFW/include"
+IncludeDir["Glad"] = "Skye/vendor/Glad/include"
+IncludeDir["ImGui"] = "Skye/vendor/imgui"
 
--- Include the GLFW premake project inside this premake file!
+-- Include the GLFW and Glad premake projects inside this premake file!
 include "Skye/vendor/GLFW"
+include "Skye/vendor/Glad"
+include "Skye/vendor/imgui"
 
 -- Start of the Skye project
 project "Skye"
@@ -32,6 +36,7 @@ project "Skye"
 	files
 	{
 		"%{prj.name}/src/**.hpp",
+        "%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp"
 	}
 
@@ -39,12 +44,16 @@ project "Skye"
 	{
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
-        "%{IncludeDir.GLFW}"
+        "%{IncludeDir.GLFW}",
+        "%{IncludeDir.Glad}",
+        "%{IncludeDir.ImGui}"
 	}
 
     links
     {
         "GLFW",
+        "Glad",
+        "ImGui",
         "opengl32.lib"
     }
 
@@ -57,7 +66,8 @@ project "Skye"
 		defines
 		{
 			"SK_PLATFORM_WINDOWS",
-			"SK_BUILD_DLL"
+			"SK_BUILD_DLL",
+            "GLFW_INCLUDE_NONE"
 		}
 
 		postbuildcommands

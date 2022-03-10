@@ -4,3 +4,6 @@
 [submodule "Skye/vendor/GLFW"]
 	path = Skye/vendor/GLFW
 	url = https://github.com/mpro34/glfw
+[submodule "Skye/vendor/imgui"]
+	path = Skye/vendor/imgui
+	url = https://github.com/mpro34/imgui

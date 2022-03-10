@@ -19,3 +19,5 @@
 #endif
 
 #define BIT_SHIFT_LEFT(x) (1 << x)
+
+#define SK_BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1)

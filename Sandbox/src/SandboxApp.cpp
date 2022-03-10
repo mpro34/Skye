@@ -9,12 +9,12 @@ public:
 
 	void OnUpdate()
 	{
-		SK_INFO("ExampleLayer::Update");
+		//SK_INFO("ExampleLayer::Update");
 	}
 
 	void OnEvent(Skye::Event& event) override
 	{
-		SK_TRACE("{0}", event);
+		SK_TRACE("Example Layer: {0}", event);
 	}
 };
 
@@ -25,6 +25,7 @@ public:
 	{
 		// Create layer structure for application.
 		PushLayer(new ExampleLayer());
+		PushOverlay(new Skye::ImGuiLayer());
 	}
 
 	~Sandbox()
