@@ -71,6 +71,8 @@
       <Filter>Skye</Filter>
     </ClInclude>
     <ClInclude Include="src\skpch.hpp" />
+    <ClInclude Include="src\Skye\KeyCodes.hpp" />
+    <ClInclude Include="src\Skye\MouseButtonCodes.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp">

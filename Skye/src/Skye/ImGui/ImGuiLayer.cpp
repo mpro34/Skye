@@ -96,7 +96,7 @@ namespace Skye {
 		dispatcher.Dispatch<KeyTypedEvent>(SK_BIND_EVENT_FN(ImGuiLayer::OnKeyTypedEvent));
 		dispatcher.Dispatch<WindowResizeEvent>(SK_BIND_EVENT_FN(ImGuiLayer::OnWindowResizeEvent));
 
-		SK_CORE_INFO("ImGui Overlay Event = {0}", event);
+		//SK_CORE_INFO("ImGui Overlay Event = {0}", event);
 		// If Event is a key press, then we handle event and set event.m_Handled = true;
 
 		if (event.GetEventType() == MouseButtonPressedEvent::GetStaticType())

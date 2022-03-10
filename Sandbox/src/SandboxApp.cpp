@@ -9,12 +9,21 @@ public:
 
 	void OnUpdate()
 	{
-		//SK_INFO("ExampleLayer::Update");
+		//Input Polling
+		if (Skye::Input::IsKeyPressed(SK_KEY_TAB))
+			SK_INFO("Tab is pressed (poll)!");
 	}
 
 	void OnEvent(Skye::Event& event) override
 	{
-		SK_TRACE("Example Layer: {0}", event);
+		// Input handling via Events
+		if (event.GetEventType() == Skye::EventType::KeyPressed)
+		{
+			Skye::KeyPressedEvent& e = (Skye::KeyPressedEvent&)event;
+			if (e.GetKeyCode() == SK_KEY_TAB)
+				SK_TRACE("Tab is pressed (event)!");
+			SK_TRACE("{0}", (char)e.GetKeyCode()); // Cast keycode int (ascii) to char
+		}
 	}
 };
 

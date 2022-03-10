@@ -164,9 +164,11 @@
     <ClInclude Include="src\Skye\Events\MouseEvent.hpp" />
     <ClInclude Include="src\Skye\ImGui\ImGuiLayer.hpp" />
     <ClInclude Include="src\Skye\Input.hpp" />
+    <ClInclude Include="src\Skye\KeyCodes.hpp" />
     <ClInclude Include="src\Skye\Layer.hpp" />
     <ClInclude Include="src\Skye\LayerStack.hpp" />
     <ClInclude Include="src\Skye\Log.hpp" />
+    <ClInclude Include="src\Skye\MouseButtonCodes.hpp" />
     <ClInclude Include="src\Skye\Window.hpp" />
     <ClInclude Include="src\skpch.hpp" />
   </ItemGroup>
