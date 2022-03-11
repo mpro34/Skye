@@ -28,7 +28,6 @@ project "Skye"
 	kind "StaticLib"
 	language "C++"
     cppdialect "C++17"
-	staticruntime "on"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -69,32 +68,28 @@ project "Skye"
     }
 
 	filter "system:windows"
-		staticruntime "Off"
-        runtime "Debug"
 		systemversion "latest"
 
 		defines
 		{
 			"SK_PLATFORM_WINDOWS",
-			"SK_BUILD_DLL",
+		    "SK_BUILD_DLL",
             "GLFW_INCLUDE_NONE"
 		}
 
-		-- postbuildcommands
-		-- {
-		-- 	("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
-		-- }
-
 	filter "configurations:Debug"
 		defines "SK_DEBUG"
+        runtime "Debug"
 		symbols "on"
 
 	filter "configurations:Release"
 		defines "SK_RELEASE"
+        runtime "Release"
 		optimize "on"
 
 	filter "configurations:Dist"
 		defines "SK_DIST"
+        runtime "Release"
 		optimize "on"
 
 -- Start of the Sandbox project
@@ -124,12 +119,11 @@ project "Sandbox"
 
 	links
 	{
-		"Skye",
-        "ImGui"
+		"Skye"
 	}
 
 	filter "system:windows"
-		staticruntime "On"
+        staticruntime "off"
 		systemversion "latest"
 
 		defines
@@ -139,15 +133,15 @@ project "Sandbox"
 
 	filter "configurations:Debug"
 		defines "SK_DEBUG"
-        buildoptions "/MDd"
+        runtime "Debug"
 		symbols "on"
 
 	filter "configurations:Release"
 		defines "SK_RELEASE"
-        buildoptions "/MD"
+        runtime "Release"
 		optimize "on"
 
 	filter "configurations:Dist"
 		defines "SK_DIST"
-        buildoptions "/MD"
+        runtime "Release"
 		optimize "on"
