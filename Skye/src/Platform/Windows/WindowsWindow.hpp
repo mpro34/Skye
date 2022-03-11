@@ -4,6 +4,9 @@
 
 #include <GLFW/glfw3.h>
 
+//#include "Skye/Renderer/GraphicsContext.hpp"
+#include "Platform/OpenGL/OpenGLContext.hpp"
+
 namespace Skye {
 
 	class WindowsWindow : public Window
@@ -28,6 +31,7 @@ namespace Skye {
 		virtual void Shutdown();
 	private:
 		GLFWwindow* m_Window;
+		OpenGLContext* m_Context;
 
 		struct WindowData
 		{
