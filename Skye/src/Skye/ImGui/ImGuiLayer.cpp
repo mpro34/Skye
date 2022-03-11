@@ -98,7 +98,6 @@ namespace Skye {
 
 		//SK_CORE_INFO("ImGui Overlay Event = {0}", event);
 		// If Event is a key press, then we handle event and set event.m_Handled = true;
-
 		if (event.GetEventType() == MouseButtonPressedEvent::GetStaticType())
 		{
 			ImGuiIO& io = ImGui::GetIO();
