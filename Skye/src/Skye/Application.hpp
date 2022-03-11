@@ -6,6 +6,7 @@
 #include "Skye/Events/Event.hpp"
 #include "Skye/Events/ApplicationEvent.hpp"
 
+#include "Skye/ImGui/ImGuiLayer.hpp"
 
 
 namespace Skye {
@@ -30,6 +31,7 @@ namespace Skye {
 		bool OnWindowClosed(WindowCloseEvent& e);
 
 		std::unique_ptr<Window> m_Window;
+		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 	private:

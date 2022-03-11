@@ -1,4 +1,5 @@
 #include <Skye.hpp>
+#include "imgui/imgui.h"
 
 class ExampleLayer : public Skye::Layer
 {
@@ -12,6 +13,13 @@ public:
 		//Input Polling
 		if (Skye::Input::IsKeyPressed(SK_KEY_TAB))
 			SK_INFO("Tab is pressed (poll)!");
+	}
+
+	void OnImGuiRender() override
+	{
+		ImGui::Begin("Test");
+		ImGui::Text("Hello World");
+		ImGui::End();
 	}
 
 	void OnEvent(Skye::Event& event) override
@@ -34,7 +42,6 @@ public:
 	{
 		// Create layer structure for application.
 		PushLayer(new ExampleLayer());
-		PushOverlay(new Skye::ImGuiLayer());
 	}
 
 	~Sandbox()

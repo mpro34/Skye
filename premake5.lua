@@ -25,8 +25,10 @@ include "Skye/vendor/imgui"
 -- Start of the Skye project
 project "Skye"
 	location "Skye"
-	kind "SharedLib"
+	kind "StaticLib"
 	language "C++"
+    cppdialect "C++17"
+	staticruntime "on"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -42,6 +44,11 @@ project "Skye"
         "%{prj.name}/vendor/glm/glm/**.hpp",
         "%{prj.name}/vendor/glm/glm/**.inl"
 	}
+
+    defines
+    {
+        "_CRT_SECURE_NO_WARNINGS"
+    }
 
 	includedirs
 	{
@@ -62,7 +69,6 @@ project "Skye"
     }
 
 	filter "system:windows"
-		cppdialect "C++17"
 		staticruntime "Off"
         runtime "Debug"
 		systemversion "latest"
@@ -74,28 +80,30 @@ project "Skye"
             "GLFW_INCLUDE_NONE"
 		}
 
-		postbuildcommands
-		{
-			("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
-		}
+		-- postbuildcommands
+		-- {
+		-- 	("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
+		-- }
 
 	filter "configurations:Debug"
 		defines "SK_DEBUG"
-		symbols "On"
+		symbols "on"
 
 	filter "configurations:Release"
 		defines "SK_RELEASE"
-		optimize "On"
+		optimize "on"
 
 	filter "configurations:Dist"
 		defines "SK_DIST"
-		optimize "On"
+		optimize "on"
 
 -- Start of the Sandbox project
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
+    cppdialect "C++17"
+	staticruntime "on"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -110,16 +118,17 @@ project "Sandbox"
 	{
 		"Skye/vendor/spdlog/include",
 		"Skye/src",
+        "Skye/vendor",
         "%{IncludeDir.glm}"
 	}
 
 	links
 	{
-		"Skye"
+		"Skye",
+        "ImGui"
 	}
 
 	filter "system:windows"
-		cppdialect "C++17"
 		staticruntime "On"
 		systemversion "latest"
 
@@ -131,14 +140,14 @@ project "Sandbox"
 	filter "configurations:Debug"
 		defines "SK_DEBUG"
         buildoptions "/MDd"
-		symbols "On"
+		symbols "on"
 
 	filter "configurations:Release"
 		defines "SK_RELEASE"
         buildoptions "/MD"
-		optimize "On"
+		optimize "on"
 
 	filter "configurations:Dist"
 		defines "SK_DIST"
         buildoptions "/MD"
-		optimize "On"
+		optimize "on"

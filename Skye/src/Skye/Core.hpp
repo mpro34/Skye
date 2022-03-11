@@ -1,10 +1,14 @@
 #pragma once
 
 #ifdef SK_PLATFORM_WINDOWS
-	#ifdef SK_BUILD_DLL
-		#define SKYE_API __declspec(dllexport)
+	#if SK_DYNAMIC_LINK
+		#ifdef SK_BUILD_DLL
+			#define SKYE_API __declspec(dllexport)
+		#else
+			#define SKYE_API __declspec(dllimport)
+		#endif
 	#else
-		#define SKYE_API __declspec(dllimport)
+		#define SKYE_API
 	#endif
 #else
 	#error Skye only supports Windows!
