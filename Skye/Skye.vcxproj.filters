@@ -7,6 +7,9 @@
     <Filter Include="src\Platform">
       <UniqueIdentifier>{21CA02E5-0D2D-9289-B6B2-CA3FA2F45D0C}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Platform\OpenGL">
+      <UniqueIdentifier>{35A49437-A105-7245-2A73-B8F796D3A804}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Platform\Windows">
       <UniqueIdentifier>{5B054582-4794-CE4B-F0B2-E246DC20DFF1}</UniqueIdentifier>
     </Filter>
@@ -18,6 +21,9 @@
     </Filter>
     <Filter Include="src\Skye\ImGui">
       <UniqueIdentifier>{C2D004E9-AE9E-F8EE-9732-6915839FD453}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Skye\Renderer">
+      <UniqueIdentifier>{3E18412D-AA2E-3FC3-F3A5-CAE45FFB0F4B}</UniqueIdentifier>
     </Filter>
     <Filter Include="vendor">
       <UniqueIdentifier>{B3738122-9F15-ACF8-88D0-BF4C74113349}</UniqueIdentifier>
@@ -42,6 +48,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.hpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLContext.hpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
     <ClInclude Include="src\Platform\Windows\WindowsInput.h">
       <Filter>src\Platform\Windows</Filter>
     </ClInclude>
@@ -92,6 +104,18 @@
     </ClInclude>
     <ClInclude Include="src\Skye\MouseButtonCodes.hpp">
       <Filter>src\Skye</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Skye\Renderer\Buffer.hpp">
+      <Filter>src\Skye\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Skye\Renderer\GraphicsContext.hpp">
+      <Filter>src\Skye\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Skye\Renderer\Renderer.hpp">
+      <Filter>src\Skye\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Skye\Renderer\Shader.hpp">
+      <Filter>src\Skye\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Skye\Window.hpp">
       <Filter>src\Skye</Filter>
@@ -1344,10 +1368,14 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp">
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
-    <ClInclude Include="src\Skye\Renderer\GraphicsContext.hpp" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLContext.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp">
       <Filter>src\Platform\Windows</Filter>
     </ClCompile>
@@ -1372,9 +1400,17 @@
     <ClCompile Include="src\Skye\Log.cpp">
       <Filter>src\Skye</Filter>
     </ClCompile>
+    <ClCompile Include="src\Skye\Renderer\Buffer.cpp">
+      <Filter>src\Skye\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Skye\Renderer\Renderer.cpp">
+      <Filter>src\Skye\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Skye\Renderer\Shader.cpp">
+      <Filter>src\Skye\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\skpch.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
   </ItemGroup>
 </Project>
