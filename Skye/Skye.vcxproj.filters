@@ -1368,6 +1368,8 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp">
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
+    <ClInclude Include="src\Skye\Renderer\VertexArray.hpp" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
@@ -1412,5 +1414,7 @@
     <ClCompile Include="src\skpch.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\Skye\Renderer\VertexArray.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
   </ItemGroup>
 </Project>
