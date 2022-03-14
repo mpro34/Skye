@@ -4,9 +4,11 @@
 [submodule "Skye/vendor/GLFW"]
 	path = Skye/vendor/GLFW
 	url = https://github.com/mpro34/glfw
+	ignore = untracked
 [submodule "Skye/vendor/imgui"]
 	path = Skye/vendor/imgui
 	url = https://github.com/mpro34/imgui
+	ignore = untracked
 [submodule "Skye/vendor/glm"]
 	path = Skye/vendor/glm
 	url = https://github.com/g-truc/glm
