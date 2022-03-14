@@ -1,2 +1,2 @@
 # Skye
-A Modern OpenGL game engine
+A modern C++ game engine.
