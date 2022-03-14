@@ -3,7 +3,7 @@
 
 #include "Skye/Log.hpp"
 
-#include <glad/glad.h>
+#include "Skye/Renderer/Renderer.hpp"
 
 #include "Input.hpp"
 
@@ -28,7 +28,7 @@ namespace Skye {
 		m_TriangleVA.reset(VertexArray::Create());
 		float vertices[3 * 7] = {
 			-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
-			0.0f, -0.5f, 0.0f, 0.2f, 0.2f, 0.8f, 1.0f,
+			0.5f, -0.5f, 0.0f, 0.2f, 0.2f, 0.8f, 1.0f,
 			0.0f, 0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
 		};
 		std::shared_ptr<VertexBuffer> vertexBuffer;
@@ -161,18 +161,19 @@ namespace Skye {
 	{
 		while (m_Running)
 		{
-			glClearColor(0.1f, 0.1f, 0.1f, 0);
-			glClear(GL_COLOR_BUFFER_BIT);
+			RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 0 });
+			RenderCommand::Clear();
 
-			// Square
-			m_BlueShader->Bind();
-			m_SquareVA->Bind();
-			glDrawElements(GL_TRIANGLES, m_SquareVA->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
-
-			// Triangle
-			m_Shader->Bind();			
-			m_TriangleVA->Bind();
-			glDrawElements(GL_TRIANGLES, m_TriangleVA->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+			Renderer::BeginScene();
+			{
+				// Draw Square
+				m_BlueShader->Bind();
+				Renderer::Submit(m_SquareVA);
+				// Draw Triangle
+				m_Shader->Bind();
+				Renderer::Submit(m_TriangleVA);
+			}
+			Renderer::EndScene();
 
 			m_ImGuiLayer->Begin();
 			for (Layer* layer : m_LayerStack)
