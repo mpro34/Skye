@@ -149,6 +149,7 @@
     <ClInclude Include="src\Skye.hpp" />
     <ClInclude Include="src\Skye\Application.hpp" />
     <ClInclude Include="src\Skye\Core.hpp" />
+    <ClInclude Include="src\Skye\Core\Timestep.hpp" />
     <ClInclude Include="src\Skye\EntryPoint.hpp" />
     <ClInclude Include="src\Skye\Events\ApplicationEvent.hpp" />
     <ClInclude Include="src\Skye\Events\Event.hpp" />

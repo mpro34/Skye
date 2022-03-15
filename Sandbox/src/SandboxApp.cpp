@@ -118,33 +118,33 @@ public:
 	}
 
 	//Input Polling
-	void OnUpdate()
+	void OnUpdate(Skye::Timestep ts) override
 	{
 		if (Skye::Input::IsKeyPressed(SK_KEY_LEFT))
 		{
-			m_CameraPosition.x += m_CameraMoveSpeed;
+			m_CameraPosition.x += m_CameraMoveSpeed * ts;
 		}
 		else if (Skye::Input::IsKeyPressed(SK_KEY_RIGHT))
 		{
-			m_CameraPosition.x -= m_CameraMoveSpeed;
+			m_CameraPosition.x -= m_CameraMoveSpeed * ts;
 		}
 
 		if (Skye::Input::IsKeyPressed(SK_KEY_UP))
 		{
-			m_CameraPosition.y -= m_CameraMoveSpeed;
+			m_CameraPosition.y -= m_CameraMoveSpeed * ts;
 		}
 		else if (Skye::Input::IsKeyPressed(SK_KEY_DOWN))
 		{
-			m_CameraPosition.y += m_CameraMoveSpeed;
+			m_CameraPosition.y += m_CameraMoveSpeed * ts;
 		}
 
 		if (Skye::Input::IsKeyPressed(SK_KEY_A))
 		{
-			m_CameraRotation += m_CameraRotationSpeed;
+			m_CameraRotation += m_CameraRotationSpeed * ts;
 		}
 		if (Skye::Input::IsKeyPressed(SK_KEY_D))
 		{
-			m_CameraRotation -= m_CameraRotationSpeed;
+			m_CameraRotation -= m_CameraRotationSpeed * ts;
 		}
 
 		Skye::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 0 });
@@ -191,9 +191,9 @@ private:
 
 	Skye::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;
-	float m_CameraMoveSpeed{ 0.05f };
+	float m_CameraMoveSpeed{ 2.0f };
 	float m_CameraRotation{ 0.0f };
-	float m_CameraRotationSpeed{ 2.0f };
+	float m_CameraRotationSpeed{ 90.0f };
 	
 };
 

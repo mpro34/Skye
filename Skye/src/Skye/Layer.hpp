@@ -2,6 +2,7 @@
 
 #include "Skye/Core.hpp"
 #include "Skye/Events/Event.hpp"
+#include "Skye/Core/Timestep.hpp"
 
 namespace Skye {
 	/* Represents a layer and should be subclassed, i.e. UI Layer */
@@ -13,7 +14,7 @@ namespace Skye {
 
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
-		virtual void OnUpdate() {}
+		virtual void OnUpdate(Timestep ts) {}
 		virtual void OnImGuiRender() {}
 		virtual void OnEvent(Event& event) {}
 

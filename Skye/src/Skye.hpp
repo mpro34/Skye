@@ -6,6 +6,8 @@
 #include "Skye/Layer.hpp"
 #include "Skye/Log.hpp"
 
+#include "Skye/Core/Timestep.hpp"
+
 #include "Skye/Input.hpp"
 #include "Skye/MouseButtonCodes.hpp"
 #include "Skye/KeyCodes.hpp"
