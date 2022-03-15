@@ -8,15 +8,9 @@
 
 #include "Skye/ImGui/ImGuiLayer.hpp"
 
-#include "Skye/Renderer/Shader.hpp"
-#include "Skye/Renderer/Buffer.hpp"
-#include "Skye/Renderer/VertexArray.hpp"
-#include "Skye/Renderer/Camera.hpp"
-
-
 namespace Skye {
 
-	class SKYE_API Application
+	class Application
 	{
 	public:
 		Application();
@@ -39,17 +33,6 @@ namespace Skye {
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
-
-		// Triangle
-		std::shared_ptr<Shader> m_Shader;
-		std::shared_ptr<VertexArray> m_TriangleVA;
-
-		// Square
-		std::shared_ptr<Shader> m_BlueShader;
-		std::shared_ptr<VertexArray> m_SquareVA;
-
-		OrthographicCamera m_Camera;
-
 	private:
 		static Application* s_Instance;
 	};
