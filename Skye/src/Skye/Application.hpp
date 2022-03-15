@@ -11,6 +11,8 @@
 #include "Skye/Renderer/Shader.hpp"
 #include "Skye/Renderer/Buffer.hpp"
 #include "Skye/Renderer/VertexArray.hpp"
+#include "Skye/Renderer/Camera.hpp"
+
 
 namespace Skye {
 
@@ -45,6 +47,8 @@ namespace Skye {
 		// Square
 		std::shared_ptr<Shader> m_BlueShader;
 		std::shared_ptr<VertexArray> m_SquareVA;
+
+		OrthographicCamera m_Camera;
 
 	private:
 		static Application* s_Instance;

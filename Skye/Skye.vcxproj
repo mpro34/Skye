@@ -163,6 +163,7 @@
     <ClInclude Include="src\Skye\MouseButtonCodes.hpp" />
     <ClInclude Include="src\Skye\Renderer\Buffer.hpp" />
     <ClInclude Include="src\Skye\Renderer\GraphicsContext.hpp" />
+    <ClInclude Include="src\Skye\Renderer\Camera.hpp" />
     <ClInclude Include="src\Skye\Renderer\RenderCommand.hpp" />
     <ClInclude Include="src\Skye\Renderer\Renderer.hpp" />
     <ClInclude Include="src\Skye\Renderer\RendererAPI.hpp" />
@@ -600,6 +601,7 @@
     <ClCompile Include="src\Skye\LayerStack.cpp" />
     <ClCompile Include="src\Skye\Log.cpp" />
     <ClCompile Include="src\Skye\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\Skye\Renderer\Camera.cpp" />
     <ClCompile Include="src\Skye\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\Skye\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Skye\Renderer\RendererAPI.cpp" />
