@@ -1,6 +1,8 @@
 #include <Skye.hpp>
 #include "imgui/imgui.h"
 
+#include <glm/gtc/matrix_transform.hpp>
+
 class ExampleLayer : public Skye::Layer
 {
 public:
@@ -31,10 +33,10 @@ public:
 		// -- Create Square -- //
 		m_SquareVA.reset(Skye::VertexArray::Create());
 		float vertices2[4 * 3] = {
-			-0.75f, 0.75f, 0.0f,
-			0.75f, -0.75f, 0.0f,
-			0.75f, 0.75f, 0.0f,
-			-0.75f, -0.75f, 0.0f
+			-0.5f, 0.5f, 0.0f,
+			0.5f, -0.5f, 0.0f,
+			0.5f, 0.5f, 0.0f,
+			-0.5f, -0.5f, 0.0f
 		};
 		std::shared_ptr<Skye::VertexBuffer> squareVB;
 		squareVB.reset(Skye::VertexBuffer::Create(vertices2, sizeof(vertices2)));
@@ -55,6 +57,7 @@ public:
 			layout(location = 1) in vec3 a_Color;
 
 			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
 
 			out vec3 v_Position;
 			out vec4 v_Color;
@@ -63,7 +66,7 @@ public:
 			{
 				v_Position = a_Position;
 				v_Color = vec4(a_Color, 1.0);
-				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
 			}	
 		)";
 
@@ -91,13 +94,14 @@ public:
 			layout(location = 0) in vec3 a_Position;
 
 			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
 
 			out vec3 v_Position;
 
 			void main()
 			{
 				v_Position = a_Position;
-				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
 			}	
 		)";
 
@@ -155,8 +159,17 @@ public:
 
 		Skye::Renderer::BeginScene(m_Camera);
 		{
-			// Draw Square
-			Skye::Renderer::Submit(m_BlueShader, m_SquareVA);
+			static glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
+			// Draw 5 squares with the same scale and various translations
+			for (int y = 0; y < 10; ++y)
+			{
+				for (int x = 0; x < 10; x++)
+				{
+					glm::vec3 pos(x * 0.11f, y * 0.11f, 0.0f);
+					glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
+					Skye::Renderer::Submit(m_BlueShader, m_SquareVA, transform);
+				}
+			}
 			// Draw Triangle
 			Skye::Renderer::Submit(m_Shader, m_TriangleVA);
 		}
@@ -194,7 +207,6 @@ private:
 	float m_CameraMoveSpeed{ 2.0f };
 	float m_CameraRotation{ 0.0f };
 	float m_CameraRotationSpeed{ 90.0f };
-	
 };
 
 class Sandbox : public Skye::Application
