@@ -110,15 +110,18 @@ public:
 
 			layout(location = 0) out vec4 color;
 
+			uniform vec4 u_Color;
+
 			in vec3 v_Position;
 			
 			void main()
 			{
 				color = vec4(0.1, 0.8, 0.4, 1.0);
+				color = u_SquareColor;
 			}	
 		)";
 
-		m_BlueShader = std::make_unique<Skye::Shader>(vertexSrc2, fragmentSrc2);
+		m_FlatColorShader = std::make_unique<Skye::Shader>(vertexSrc2, fragmentSrc2);
 	}
 
 	//Input Polling
@@ -160,14 +163,23 @@ public:
 		Skye::Renderer::BeginScene(m_Camera);
 		{
 			static glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
-			// Draw 5 squares with the same scale and various translations
+			
+			glm::vec4 redColor(0.1, 0.4, 0.8, 1.0);
+			glm::vec4 blueColor(0.1, 0.8, 0.4, 1.0);
+
+			//Skye::Material* material = new Skye::Material(m_FlatColorShader);
+
 			for (int y = 0; y < 10; ++y)
 			{
 				for (int x = 0; x < 10; x++)
 				{
 					glm::vec3 pos(x * 0.11f, y * 0.11f, 0.0f);
 					glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
-					Skye::Renderer::Submit(m_BlueShader, m_SquareVA, transform);
+					/*if (x % 2 == 0)
+						m_FlatColorShader->UploadUniformFloat4("u_Color", redColor);
+					else
+						m_FlatColorShader->UploadUniformFloat4("u_Color", blueColor);*/
+					Skye::Renderer::Submit(m_FlatColorShader, m_SquareVA, transform);
 				}
 			}
 			// Draw Triangle
@@ -199,7 +211,7 @@ private:
 	std::shared_ptr<Skye::VertexArray> m_TriangleVA;
 
 	// Square
-	std::shared_ptr<Skye::Shader> m_BlueShader;
+	std::shared_ptr<Skye::Shader> m_FlatColorShader;
 	std::shared_ptr<Skye::VertexArray> m_SquareVA;
 
 	Skye::OrthographicCamera m_Camera;

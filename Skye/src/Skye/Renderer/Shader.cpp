@@ -130,4 +130,10 @@ namespace Skye {
 		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
 	}
 
+	void Shader::UploadUniformFloat4(const std::string name, const glm::vec4& value)
+	{
+		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
+		glUniform4f(location, value.r, value.g, value.b, value.a);
+	}
+
 }
