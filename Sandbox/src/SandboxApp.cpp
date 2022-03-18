@@ -19,7 +19,7 @@ public:
 			0.5f, -0.5f, 0.0f, 0.2f, 0.2f, 0.8f, 1.0f,
 			0.0f, 0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
 		};
-		std::shared_ptr<Skye::VertexBuffer> vertexBuffer;
+		Skye::Ref<Skye::VertexBuffer> vertexBuffer;
 		vertexBuffer.reset(Skye::VertexBuffer::Create(vertices, sizeof(vertices)));
 		// Describe layout of vertex buffer (no vertex arrays in D3D!)
 		Skye::BufferLayout layout = {
@@ -29,7 +29,7 @@ public:
 		vertexBuffer->SetLayout(layout);
 		m_TriangleVA->AddVertexBuffer(vertexBuffer);
 		uint32_t indices[3] = { 0, 1, 2 };
-		std::shared_ptr<Skye::IndexBuffer> indexBuffer;
+		Skye::Ref<Skye::IndexBuffer> indexBuffer;
 		indexBuffer.reset(Skye::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 		m_TriangleVA->SetIndexBuffer(indexBuffer);
 
@@ -41,14 +41,14 @@ public:
 			0.5f, 0.5f, 0.0f,
 			-0.5f, -0.5f, 0.0f
 		};
-		std::shared_ptr<Skye::VertexBuffer> squareVB;
+		Skye::Ref<Skye::VertexBuffer> squareVB;
 		squareVB.reset(Skye::VertexBuffer::Create(vertices2, sizeof(vertices2)));
 		squareVB->SetLayout({
 			{Skye::ShaderDataType::Float3, "a_Position"}
 			});
 		m_SquareVA->AddVertexBuffer(squareVB);
 		uint32_t indices2[6] = { 0, 1, 2, 1, 3, 0 };
-		std::shared_ptr<Skye::IndexBuffer> indexBuffer2;
+		Skye::Ref<Skye::IndexBuffer> indexBuffer2;
 		indexBuffer2.reset(Skye::IndexBuffer::Create(indices2, sizeof(indices2) / sizeof(uint32_t)));
 		m_SquareVA->SetIndexBuffer(indexBuffer2);
 
@@ -207,12 +207,12 @@ public:
 
 private:
 	// Triangle
-	std::shared_ptr<Skye::Shader> m_Shader;
-	std::shared_ptr<Skye::VertexArray> m_TriangleVA;
+	Skye::Ref<Skye::Shader> m_Shader;
+	Skye::Ref<Skye::VertexArray> m_TriangleVA;
 
 	// Square
-	std::shared_ptr<Skye::Shader> m_FlatColorShader;
-	std::shared_ptr<Skye::VertexArray> m_SquareVA;
+	Skye::Ref<Skye::Shader> m_FlatColorShader;
+	Skye::Ref<Skye::VertexArray> m_SquareVA;
 
 	Skye::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;
