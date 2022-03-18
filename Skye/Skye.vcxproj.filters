@@ -1387,6 +1387,7 @@
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
     <ClInclude Include="src\Skye\Core\Timestep.hpp" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLShader.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
@@ -1449,5 +1450,6 @@
     <ClCompile Include="src\skpch.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp" />
   </ItemGroup>
 </Project>

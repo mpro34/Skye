@@ -1,7 +1,10 @@
 #include <Skye.hpp>
+#include "Platform/OpenGL/OpenGLShader.hpp"
+
 #include "imgui/imgui.h"
 
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 class ExampleLayer : public Skye::Layer
 {
@@ -85,7 +88,7 @@ public:
 			}	
 		)";
 
-		m_Shader = std::make_unique<Skye::Shader>(vertexSrc, fragmentSrc);
+		m_Shader.reset(Skye::Shader::Create(vertexSrc, fragmentSrc));
 
 		// Create and bind shader
 		std::string vertexSrc2 = R"(
@@ -110,18 +113,18 @@ public:
 
 			layout(location = 0) out vec4 color;
 
-			uniform vec4 u_Color;
+			uniform vec3 u_Color;
 
 			in vec3 v_Position;
 			
 			void main()
 			{
 				color = vec4(0.1, 0.8, 0.4, 1.0);
-				color = u_SquareColor;
+				color = vec4(u_Color, 1.0);
 			}	
 		)";
 
-		m_FlatColorShader = std::make_unique<Skye::Shader>(vertexSrc2, fragmentSrc2);
+		m_FlatColorShader.reset(Skye::Shader::Create(vertexSrc2, fragmentSrc2));
 	}
 
 	//Input Polling
@@ -163,11 +166,10 @@ public:
 		Skye::Renderer::BeginScene(m_Camera);
 		{
 			static glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
-			
-			glm::vec4 redColor(0.1, 0.4, 0.8, 1.0);
-			glm::vec4 blueColor(0.1, 0.8, 0.4, 1.0);
 
 			//Skye::Material* material = new Skye::Material(m_FlatColorShader);
+			std::dynamic_pointer_cast<Skye::OpenGLShader>(m_FlatColorShader)->Bind();
+			std::dynamic_pointer_cast<Skye::OpenGLShader>(m_FlatColorShader)->UploadUniformFloat3("u_Color", m_SquareColor);
 
 			for (int y = 0; y < 10; ++y)
 			{
@@ -175,10 +177,6 @@ public:
 				{
 					glm::vec3 pos(x * 0.11f, y * 0.11f, 0.0f);
 					glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
-					/*if (x % 2 == 0)
-						m_FlatColorShader->UploadUniformFloat4("u_Color", redColor);
-					else
-						m_FlatColorShader->UploadUniformFloat4("u_Color", blueColor);*/
 					Skye::Renderer::Submit(m_FlatColorShader, m_SquareVA, transform);
 				}
 			}
@@ -190,7 +188,9 @@ public:
 
 	void OnImGuiRender() override
 	{
-
+		ImGui::Begin("Settings");
+		ImGui::ColorEdit3("Square Color", glm::value_ptr(m_SquareColor));
+		ImGui::End();
 	}
 
 	// Input handling via Events
@@ -219,6 +219,8 @@ private:
 	float m_CameraMoveSpeed{ 2.0f };
 	float m_CameraRotation{ 0.0f };
 	float m_CameraRotationSpeed{ 90.0f };
+
+	glm::vec3 m_SquareColor = { 0.2f, 0.3f, 0.4f };
 };
 
 class Sandbox : public Skye::Application
