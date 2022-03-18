@@ -16,6 +16,7 @@ IncludeDir["GLFW"] = "Skye/vendor/GLFW/include"
 IncludeDir["Glad"] = "Skye/vendor/Glad/include"
 IncludeDir["ImGui"] = "Skye/vendor/imgui"
 IncludeDir["glm"] = "Skye/vendor/glm"
+IncludeDir["stb_image"] = "Skye/vendor/stb_image"
 
 -- Include the GLFW and Glad premake projects inside this premake file!
 include "Skye/vendor/GLFW"
@@ -40,6 +41,8 @@ project "Skye"
 		"%{prj.name}/src/**.hpp",
         "%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp",
+        "%{prj.name}/vendor/stb_image/**.h",
+        "%{prj.name}/vendor/stb_image/**.cpp",
         "%{prj.name}/vendor/glm/glm/**.hpp",
         "%{prj.name}/vendor/glm/glm/**.inl"
 	}
@@ -56,7 +59,8 @@ project "Skye"
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.Glad}",
         "%{IncludeDir.ImGui}",
-        "%{IncludeDir.glm}"
+        "%{IncludeDir.glm}",
+        "%{IncludeDir.stb_image}"
 	}
 
     links

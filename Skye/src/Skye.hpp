@@ -18,6 +18,7 @@
 
 #include "Skye/Renderer/Buffer.hpp"
 #include "Skye/Renderer/Shader.hpp"
+#include "Skye/Renderer/Texture.hpp"
 #include "Skye/Renderer/VertexArray.hpp"
 
 #include "Skye/Renderer/Camera.hpp"

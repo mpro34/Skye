@@ -16,6 +16,9 @@
     <Filter Include="src\Skye">
       <UniqueIdentifier>{988925CF-8456-80DA-AD6F-6E82999BB568}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Skye\Core">
+      <UniqueIdentifier>{F06C0C07-5C2D-883D-2568-D1BA91E7CC19}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Skye\Events">
       <UniqueIdentifier>{7C7AFD00-E805-6BC5-F116-EEB95D21C7C5}</UniqueIdentifier>
     </Filter>
@@ -46,6 +49,9 @@
     <Filter Include="vendor\glm\glm\gtx">
       <UniqueIdentifier>{B3A6A76B-9F8A-68C1-08EB-6214F4ED5243}</UniqueIdentifier>
     </Filter>
+    <Filter Include="vendor\stb_image">
+      <UniqueIdentifier>{0DA0BA59-F998-D9AB-22CB-BE300E23B9B7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.hpp">
@@ -55,6 +61,12 @@
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.hpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLShader.hpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLTexture.hpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.hpp">
@@ -74,6 +86,9 @@
     </ClInclude>
     <ClInclude Include="src\Skye\Core.hpp">
       <Filter>src\Skye</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Skye\Core\Timestep.hpp">
+      <Filter>src\Skye\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Skye\EntryPoint.hpp">
       <Filter>src\Skye</Filter>
@@ -130,6 +145,9 @@
       <Filter>src\Skye\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Skye\Renderer\Shader.hpp">
+      <Filter>src\Skye\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Skye\Renderer\Texture.hpp">
       <Filter>src\Skye\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Skye\Renderer\VertexArray.hpp">
@@ -1386,8 +1404,9 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp">
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
-    <ClInclude Include="src\Skye\Core\Timestep.hpp" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLShader.hpp" />
+    <ClInclude Include="vendor\stb_image\stb_image.h">
+      <Filter>vendor\stb_image</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
@@ -1397,6 +1416,12 @@
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLTexture.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp">
@@ -1444,12 +1469,17 @@
     <ClCompile Include="src\Skye\Renderer\Shader.cpp">
       <Filter>src\Skye\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Skye\Renderer\Texture.cpp">
+      <Filter>src\Skye\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\Skye\Renderer\VertexArray.cpp">
       <Filter>src\Skye\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\skpch.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp" />
+    <ClCompile Include="vendor\stb_image\stb_image.cpp">
+      <Filter>vendor\stb_image</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

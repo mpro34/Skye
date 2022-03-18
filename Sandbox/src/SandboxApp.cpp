@@ -1,5 +1,6 @@
 #include <Skye.hpp>
 #include "Platform/OpenGL/OpenGLShader.hpp"
+#include "Platform/OpenGL/OpenGLTexture.hpp"
 
 #include "imgui/imgui.h"
 
@@ -35,19 +36,20 @@ public:
 
 		// -- Create Square -- //
 		m_SquareVA.reset(Skye::VertexArray::Create());
-		float vertices2[4 * 3] = {
-			-0.5f, 0.5f, 0.0f,
-			0.5f, -0.5f, 0.0f,
-			0.5f, 0.5f, 0.0f,
-			-0.5f, -0.5f, 0.0f
+		float vertices2[5 * 4] = {
+			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+			0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+			0.5f, 0.5f, 0.0f, 1.0f, 1.0f,
+			-0.5f, 0.5f, 0.0f, 0.0f, 1.0f
 		};
 		Skye::Ref<Skye::VertexBuffer> squareVB;
 		squareVB.reset(Skye::VertexBuffer::Create(vertices2, sizeof(vertices2)));
 		squareVB->SetLayout({
-			{Skye::ShaderDataType::Float3, "a_Position"}
-			});
+			{Skye::ShaderDataType::Float3, "a_Position"},
+			{Skye::ShaderDataType::Float2, "a_TexCoord"}
+		});
 		m_SquareVA->AddVertexBuffer(squareVB);
-		uint32_t indices2[6] = { 0, 1, 2, 1, 3, 0 };
+		uint32_t indices2[6] = { 0, 1, 2, 2, 3, 0 };
 		Skye::Ref<Skye::IndexBuffer> indexBuffer2;
 		indexBuffer2.reset(Skye::IndexBuffer::Create(indices2, sizeof(indices2) / sizeof(uint32_t)));
 		m_SquareVA->SetIndexBuffer(indexBuffer2);
@@ -125,6 +127,46 @@ public:
 		)";
 
 		m_FlatColorShader.reset(Skye::Shader::Create(vertexSrc2, fragmentSrc2));
+
+		// Create and bind shader
+		std::string textureVertexSrc = R"(
+			#version 330 core
+
+			layout(location = 0) in vec3 a_Position;
+			layout(location = 1) in vec2 a_TexCoord;
+
+			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
+
+			out vec2 v_TexCoord;
+
+			void main()
+			{
+				v_TexCoord = a_TexCoord;
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
+			}	
+		)";
+
+		std::string textureFragmentSrc = R"(
+			#version 330 core
+
+			layout(location = 0) out vec4 color;
+
+			in vec2 v_TexCoord;
+
+			uniform sampler2D u_Texture;
+			
+			void main()
+			{
+				color = texture(u_Texture, v_TexCoord);
+			}	
+		)";
+
+		m_TextureShader.reset(Skye::Shader::Create(textureVertexSrc, textureFragmentSrc));
+
+		m_Texture = Skye::Texture2D::Create("assets/textures/Checkerboard.png");
+		std::dynamic_pointer_cast<Skye::OpenGLShader>(m_TextureShader)->Bind();
+		std::dynamic_pointer_cast<Skye::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0); // Texture is bound to 0
 	}
 
 	//Input Polling
@@ -165,7 +207,7 @@ public:
 
 		Skye::Renderer::BeginScene(m_Camera);
 		{
-			static glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
+			glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
 			//Skye::Material* material = new Skye::Material(m_FlatColorShader);
 			std::dynamic_pointer_cast<Skye::OpenGLShader>(m_FlatColorShader)->Bind();
@@ -180,8 +222,12 @@ public:
 					Skye::Renderer::Submit(m_FlatColorShader, m_SquareVA, transform);
 				}
 			}
+			// Draw Square
+			m_Texture->Bind();
+			Skye::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+
 			// Draw Triangle
-			Skye::Renderer::Submit(m_Shader, m_TriangleVA);
+			//Skye::Renderer::Submit(m_Shader, m_TriangleVA);
 		}
 		Skye::Renderer::EndScene();
 	}
@@ -212,7 +258,10 @@ private:
 
 	// Square
 	Skye::Ref<Skye::Shader> m_FlatColorShader;
+	Skye::Ref<Skye::Shader> m_TextureShader;
 	Skye::Ref<Skye::VertexArray> m_SquareVA;
+
+	Skye::Ref<Skye::Texture2D> m_Texture;
 
 	Skye::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;
