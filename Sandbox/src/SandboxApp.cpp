@@ -165,6 +165,7 @@ public:
 		m_TextureShader.reset(Skye::Shader::Create(textureVertexSrc, textureFragmentSrc));
 
 		m_Texture = Skye::Texture2D::Create("assets/textures/Checkerboard.png");
+		m_LogoTexture = Skye::Texture2D::Create("assets/textures/Logo.png");
 		std::dynamic_pointer_cast<Skye::OpenGLShader>(m_TextureShader)->Bind();
 		std::dynamic_pointer_cast<Skye::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0); // Texture is bound to 0
 	}
@@ -226,6 +227,9 @@ public:
 			m_Texture->Bind();
 			Skye::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
+			m_LogoTexture->Bind();
+			Skye::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+
 			// Draw Triangle
 			//Skye::Renderer::Submit(m_Shader, m_TriangleVA);
 		}
@@ -262,6 +266,7 @@ private:
 	Skye::Ref<Skye::VertexArray> m_SquareVA;
 
 	Skye::Ref<Skye::Texture2D> m_Texture;
+	Skye::Ref<Skye::Texture2D> m_LogoTexture;
 
 	Skye::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;

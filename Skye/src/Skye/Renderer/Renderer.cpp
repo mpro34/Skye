@@ -7,6 +7,11 @@ namespace Skye {
 
 	Renderer::SceneData* Renderer::m_SceneData = new Renderer::SceneData;
 
+	void Renderer::Init()
+	{
+		RenderCommand::Init();
+	}
+
 	void Renderer::BeginScene(OrthographicCamera& camera)
 	{
 		// Only copy the view projection matrix to store in scene data from the reference, not entire camera.
