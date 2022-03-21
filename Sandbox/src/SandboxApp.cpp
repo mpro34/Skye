@@ -90,7 +90,7 @@ public:
 			}	
 		)";
 
-		m_Shader.reset(Skye::Shader::Create(vertexSrc, fragmentSrc));
+		auto triangleShader = m_ShaderLibrary.Load("TriangleShader", vertexSrc, fragmentSrc);
 
 		// Create and bind shader
 		std::string vertexSrc2 = R"(
@@ -127,14 +127,14 @@ public:
 		)";
 
 		// Load shader from strings
-		m_FlatColorShader.reset(Skye::Shader::Create(vertexSrc2, fragmentSrc2));
+		auto flatColorShader = m_ShaderLibrary.Load("FlatColorShader", vertexSrc2, fragmentSrc2);
 		// Load shader from file
-		m_TextureShader.reset(Skye::Shader::Create("assets/shaders/Texture.glsl"));
+		auto textureShader = m_ShaderLibrary.Load("assets/shaders/Texture.glsl");
 
 		m_Texture = Skye::Texture2D::Create("assets/textures/Checkerboard.png");
 		m_LogoTexture = Skye::Texture2D::Create("assets/textures/Logo.png");
-		std::dynamic_pointer_cast<Skye::OpenGLShader>(m_TextureShader)->Bind();
-		std::dynamic_pointer_cast<Skye::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0); // Texture is bound to 0
+		std::dynamic_pointer_cast<Skye::OpenGLShader>(textureShader)->Bind();
+		std::dynamic_pointer_cast<Skye::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0); // Texture is bound to 0
 	}
 
 	//Input Polling
@@ -178,8 +178,9 @@ public:
 			glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
 			//Skye::Material* material = new Skye::Material(m_FlatColorShader);
-			std::dynamic_pointer_cast<Skye::OpenGLShader>(m_FlatColorShader)->Bind();
-			std::dynamic_pointer_cast<Skye::OpenGLShader>(m_FlatColorShader)->UploadUniformFloat3("u_Color", m_SquareColor);
+			auto flatColorShader = m_ShaderLibrary.Get("FlatColorShader");
+			std::dynamic_pointer_cast<Skye::OpenGLShader>(flatColorShader)->Bind();
+			std::dynamic_pointer_cast<Skye::OpenGLShader>(flatColorShader)->UploadUniformFloat3("u_Color", m_SquareColor);
 
 			for (int y = 0; y < 10; ++y)
 			{
@@ -187,15 +188,18 @@ public:
 				{
 					glm::vec3 pos(x * 0.11f, y * 0.11f, 0.0f);
 					glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
-					Skye::Renderer::Submit(m_FlatColorShader, m_SquareVA, transform);
+					Skye::Renderer::Submit(flatColorShader, m_SquareVA, transform);
 				}
 			}
+
+			auto textureShader = m_ShaderLibrary.Get("Texture");
+
 			// Draw Square
 			m_Texture->Bind();
-			Skye::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+			Skye::Renderer::Submit(textureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
 			m_LogoTexture->Bind();
-			Skye::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+			Skye::Renderer::Submit(textureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
 			// Draw Triangle
 			//Skye::Renderer::Submit(m_Shader, m_TriangleVA);
@@ -223,13 +227,13 @@ public:
 	}
 
 private:
+	// Store all shaders into library instead of refs to each one!
+	Skye::ShaderLibrary m_ShaderLibrary;
+
 	// Triangle
-	Skye::Ref<Skye::Shader> m_Shader;
 	Skye::Ref<Skye::VertexArray> m_TriangleVA;
 
 	// Square
-	Skye::Ref<Skye::Shader> m_FlatColorShader;
-	Skye::Ref<Skye::Shader> m_TextureShader;
 	Skye::Ref<Skye::VertexArray> m_SquareVA;
 
 	Skye::Ref<Skye::Texture2D> m_Texture;
