@@ -11,7 +11,7 @@ class ExampleLayer : public Skye::Layer
 {
 public:
 	ExampleLayer()
-		: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.0f)
+		: Layer("Example"), m_CameraController(1280.0f / 720.0f, true)
 	{
 		// -- Create Triangle -- //
 		m_TriangleVA.reset(Skye::VertexArray::Create());
@@ -140,40 +140,14 @@ public:
 	//Input Polling
 	void OnUpdate(Skye::Timestep ts) override
 	{
-		if (Skye::Input::IsKeyPressed(SK_KEY_LEFT))
-		{
-			m_CameraPosition.x += m_CameraMoveSpeed * ts;
-		}
-		else if (Skye::Input::IsKeyPressed(SK_KEY_RIGHT))
-		{
-			m_CameraPosition.x -= m_CameraMoveSpeed * ts;
-		}
+		// Update
+		m_CameraController.OnUpdate(ts);
 
-		if (Skye::Input::IsKeyPressed(SK_KEY_UP))
-		{
-			m_CameraPosition.y -= m_CameraMoveSpeed * ts;
-		}
-		else if (Skye::Input::IsKeyPressed(SK_KEY_DOWN))
-		{
-			m_CameraPosition.y += m_CameraMoveSpeed * ts;
-		}
-
-		if (Skye::Input::IsKeyPressed(SK_KEY_A))
-		{
-			m_CameraRotation += m_CameraRotationSpeed * ts;
-		}
-		if (Skye::Input::IsKeyPressed(SK_KEY_D))
-		{
-			m_CameraRotation -= m_CameraRotationSpeed * ts;
-		}
-
+		// Render
 		Skye::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 0 });
 		Skye::RenderCommand::Clear();
 
-		m_Camera.SetPosition(m_CameraPosition);
-		m_Camera.SetRotation(m_CameraRotation);
-
-		Skye::Renderer::BeginScene(m_Camera);
+		Skye::Renderer::BeginScene(m_CameraController.GetCamera());
 		{
 			glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
@@ -217,6 +191,10 @@ public:
 	// Input handling via Events
 	void OnEvent(Skye::Event& event) override
 	{
+		// Camera
+		m_CameraController.OnEvent(event);
+
+		// Render
 		Skye::EventDispatcher dispatcher(event);
 		dispatcher.Dispatch<Skye::KeyPressedEvent>(SK_BIND_EVENT_FN(ExampleLayer::OnKeyPressedEvent));
 	}
@@ -239,12 +217,7 @@ private:
 	Skye::Ref<Skye::Texture2D> m_Texture;
 	Skye::Ref<Skye::Texture2D> m_LogoTexture;
 
-	Skye::OrthographicCamera m_Camera;
-	glm::vec3 m_CameraPosition;
-	float m_CameraMoveSpeed{ 2.0f };
-	float m_CameraRotation{ 0.0f };
-	float m_CameraRotationSpeed{ 90.0f };
-
+	Skye::OrthographicCameraController m_CameraController;
 	glm::vec3 m_SquareColor = { 0.2f, 0.3f, 0.4f };
 };
 

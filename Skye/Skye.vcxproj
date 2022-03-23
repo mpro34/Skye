@@ -150,6 +150,7 @@
     <ClInclude Include="src\Platform\Windows\WindowsWindow.hpp" />
     <ClInclude Include="src\Skye.hpp" />
     <ClInclude Include="src\Skye\Application.hpp" />
+    <ClInclude Include="src\Skye\CameraController.hpp" />
     <ClInclude Include="src\Skye\Core.hpp" />
     <ClInclude Include="src\Skye\Core\Timestep.hpp" />
     <ClInclude Include="src\Skye\EntryPoint.hpp" />
@@ -602,6 +603,7 @@
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\Skye\Application.cpp" />
+    <ClCompile Include="src\Skye\CameraController.cpp" />
     <ClCompile Include="src\Skye\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Skye\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Skye\Layer.cpp" />

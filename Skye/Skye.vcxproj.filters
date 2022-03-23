@@ -1407,6 +1407,9 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
+    <ClInclude Include="src\Skye\CameraController.hpp">
+      <Filter>src\Skye</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
@@ -1480,6 +1483,9 @@
     </ClCompile>
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Skye\CameraController.cpp">
+      <Filter>src\Skye</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

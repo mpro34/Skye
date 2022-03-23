@@ -11,6 +11,7 @@
 #include "Skye/Input.hpp"
 #include "Skye/MouseButtonCodes.hpp"
 #include "Skye/KeyCodes.hpp"
+#include "Skye/CameraController.hpp"
 
 // -- Skye Renderer -- //
 #include "Skye/Renderer/Renderer.hpp"
