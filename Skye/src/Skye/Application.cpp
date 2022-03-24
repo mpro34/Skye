@@ -46,6 +46,7 @@ namespace Skye {
 	{
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(Application::OnWindowClosed));
+		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(Application::OnWindowResized));
 
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )
 		{
@@ -63,8 +64,12 @@ namespace Skye {
 			Timestep timestep = time - m_LastFrameTime;
 			m_LastFrameTime = time;
 
-			for (Layer* layer : m_LayerStack)
-				layer->OnUpdate(timestep);
+			// Only handle updates if application is not minimized (not need to render)
+			if (!m_Minimized)
+			{
+				for (Layer* layer : m_LayerStack)
+					layer->OnUpdate(timestep);
+			}
 
 			m_ImGuiLayer->Begin();
 			for (Layer* layer : m_LayerStack)
@@ -75,9 +80,26 @@ namespace Skye {
 		}
 	}
 
+	// Set application to stop running and do not propagate event to any more layers.
 	bool Application::OnWindowClosed(WindowCloseEvent& e)
 	{
 		m_Running = false;
 		return true;
+	}
+
+	// Handle window resize aspect ratio change and propagate event to other layers.
+	bool Application::OnWindowResized(WindowResizeEvent& e)
+	{
+		if (e.GetWidth() == 0 || e.GetHeight() == 0)
+		{
+			m_Minimized = true;
+			return false;
+		}
+
+		m_Minimized = false;
+
+		Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
+
+		return false;
 	}
 }

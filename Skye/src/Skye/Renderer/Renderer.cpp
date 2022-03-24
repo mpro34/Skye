@@ -12,6 +12,11 @@ namespace Skye {
 		RenderCommand::Init();
 	}
 
+	void Renderer::OnWindowResize(uint32_t width, uint32_t height)
+	{
+		RenderCommand::SetViewport(0, 0, width, height);
+	}
+
 	void Renderer::BeginScene(OrthographicCamera& camera)
 	{
 		// Only copy the view projection matrix to store in scene data from the reference, not entire camera.
