@@ -13,7 +13,7 @@
 #include <unordered_map>
 #include <unordered_set>
 
-#include "Skye/Log.hpp"
+#include "Skye/Core/Log.hpp"
 
 #ifdef SK_PLATFORM_WINDOWS
 	#include <Windows.h>

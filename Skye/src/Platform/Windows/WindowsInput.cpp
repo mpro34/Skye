@@ -1,7 +1,7 @@
 #include "skpch.hpp"
 #include "WindowsInput.h"
 
-#include "Skye/Application.hpp"
+#include "Skye/Core/Application.hpp"
 #include <GLFW/glfw3.h>
 
 namespace Skye {

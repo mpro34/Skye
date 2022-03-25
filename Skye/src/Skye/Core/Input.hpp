@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Skye/Core.hpp"
+#include "Skye/Core/Core.hpp"
 
 namespace Skye {
 

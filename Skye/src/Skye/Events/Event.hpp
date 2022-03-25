@@ -1,7 +1,7 @@
 #pragma once
 
 #include "skpch.hpp"
-#include "Skye/Core.hpp"
+#include "Skye/Core/Core.hpp"
 
 namespace Skye {
 	

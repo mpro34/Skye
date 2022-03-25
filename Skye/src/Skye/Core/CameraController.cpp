@@ -1,8 +1,8 @@
 #include "skpch.hpp"
 #include "CameraController.hpp"
 
-#include "Skye/Input.hpp"
-#include "Skye/KeyCodes.hpp"
+#include "Skye/Core/Input.hpp"
+#include "Skye/Core/KeyCodes.hpp"
 
 namespace Skye {
 	OrthographicCameraController::OrthographicCameraController(float aspect_ratio, bool rotation)

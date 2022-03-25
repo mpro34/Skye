@@ -1,7 +1,7 @@
 #include "skpch.hpp"
 #include "Application.hpp"
 
-#include "Skye/Log.hpp"
+#include "Skye/Core/Log.hpp"
 
 #include "Skye/Renderer/Renderer.hpp"
 #include <GLFW/glfw3.h>

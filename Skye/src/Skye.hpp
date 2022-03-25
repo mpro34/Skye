@@ -2,16 +2,16 @@
 
 // For use by Skye applications
 
-#include "Skye/Application.hpp"
-#include "Skye/Layer.hpp"
-#include "Skye/Log.hpp"
+#include "Skye/Core/Application.hpp"
+#include "Skye/Core/Layer.hpp"
+#include "Skye/Core/Log.hpp"
 
 #include "Skye/Core/Timestep.hpp"
 
-#include "Skye/Input.hpp"
-#include "Skye/MouseButtonCodes.hpp"
-#include "Skye/KeyCodes.hpp"
-#include "Skye/CameraController.hpp"
+#include "Skye/Core/Input.hpp"
+#include "Skye/Core/MouseButtonCodes.hpp"
+#include "Skye/Core/KeyCodes.hpp"
+#include "Skye/Core/CameraController.hpp"
 
 // -- Skye Renderer -- //
 #include "Skye/Renderer/Renderer.hpp"
@@ -28,5 +28,5 @@
 #include "Skye/ImGui/ImGuiLayer.hpp"
 
 // -- Entry Point	--
-#include "Skye/EntryPoint.hpp"
+#include "Skye/Core/EntryPoint.hpp"
 // --				--

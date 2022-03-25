@@ -2,7 +2,7 @@
 
 #include "skpch.hpp"
 
-#include "Skye/Core.hpp"
+#include "Skye/Core/Core.hpp"
 #include "Skye/Events/Event.hpp"
 
 namespace Skye {

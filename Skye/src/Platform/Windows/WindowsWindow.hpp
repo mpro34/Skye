@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Skye/Window.hpp"
+#include "Skye/Core/Window.hpp"
 
 #include <GLFW/glfw3.h>
 

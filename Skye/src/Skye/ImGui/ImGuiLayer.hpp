@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Skye/Layer.hpp"
+#include "Skye/Core/Layer.hpp"
 
 #include "Skye/Events/ApplicationEvent.hpp"
 #include "Skye/Events/MouseEvent.hpp"
