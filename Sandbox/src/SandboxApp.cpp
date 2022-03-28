@@ -136,7 +136,8 @@ public:
 		m_Texture = Skye::Texture2D::Create("assets/textures/Checkerboard.png");
 		m_LogoTexture = Skye::Texture2D::Create("assets/textures/Logo.png");
 		std::dynamic_pointer_cast<Skye::OpenGLShader>(textureShader)->Bind();
-		std::dynamic_pointer_cast<Skye::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0); // Texture is bound to 0
+		// Texture is bound to 0
+		std::dynamic_pointer_cast<Skye::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);
 	}
 
 	//Input Polling

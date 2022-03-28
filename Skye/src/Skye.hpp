@@ -15,6 +15,7 @@
 
 // -- Skye Renderer -- //
 #include "Skye/Renderer/Renderer.hpp"
+#include "Skye/Renderer/Renderer2D.hpp"
 #include "Skye/Renderer/RenderCommand.hpp"
 
 #include "Skye/Renderer/Buffer.hpp"
