@@ -26,7 +26,3 @@
 
 // -- Vendors -- //
 #include "Skye/ImGui/ImGuiLayer.hpp"
-
-// -- Entry Point	--
-#include "Skye/Core/EntryPoint.hpp"
-// --				--

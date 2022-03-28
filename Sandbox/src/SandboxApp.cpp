@@ -1,11 +1,13 @@
 #include <Skye.hpp>
+#include <Skye/Core/EntryPoint.hpp>
+
 #include "Platform/OpenGL/OpenGLShader.hpp"
 #include "Platform/OpenGL/OpenGLTexture.hpp"
-
 #include "imgui/imgui.h"
-
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+
+#include "Sandbox2D.hpp"
 
 class ExampleLayer : public Skye::Layer
 {
@@ -14,7 +16,7 @@ public:
 		: Layer("Example"), m_CameraController(1280.0f / 720.0f, true)
 	{
 		// -- Create Triangle -- //
-		m_TriangleVA.reset(Skye::VertexArray::Create());
+		m_TriangleVA = Skye::VertexArray::Create();
 		float vertices[3 * 7] = {
 			-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
 			0.5f, -0.5f, 0.0f, 0.2f, 0.2f, 0.8f, 1.0f,
@@ -35,7 +37,7 @@ public:
 		m_TriangleVA->SetIndexBuffer(indexBuffer);
 
 		// -- Create Square -- //
-		m_SquareVA.reset(Skye::VertexArray::Create());
+		m_SquareVA = Skye::VertexArray::Create();
 		float vertices2[5 * 4] = {
 			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
 			0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
@@ -227,7 +229,8 @@ public:
 	Sandbox()
 	{
 		// Create layer structure for application.
-		PushLayer(new ExampleLayer());
+		//PushLayer(new ExampleLayer());
+		PushLayer(new Sandbox2D());
 	}
 
 	~Sandbox()
