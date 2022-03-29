@@ -57,6 +57,21 @@ namespace Skye {
 		glUseProgram(0);
 	}
 
+	void OpenGLShader::SetMat4(const std::string& name, const glm::mat4& matrix)
+	{
+		UploadUniformMat4(name, matrix);
+	}
+
+	void OpenGLShader::SetFloat3(const std::string& name, const glm::vec3& values)
+	{
+		UploadUniformFloat3(name, values);
+	}
+
+	void OpenGLShader::SetFloat4(const std::string& name, const glm::vec4& values)
+	{
+		UploadUniformFloat4(name, values);
+	}
+
 	void OpenGLShader::UploadUniformInt(const std::string name, int value)
 	{
 		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
