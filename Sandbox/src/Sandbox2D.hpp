@@ -19,6 +19,7 @@ private:
 	// Temp - Should be handled by this class!
 	Skye::Ref<Skye::VertexArray> m_VertexArray;
 	Skye::Ref<Skye::Shader> m_FlatColorShader;
+	Skye::Ref<Skye::Texture2D> m_Texture;
 
 	glm::vec4 m_SquareColor = { 0.2f, 0.3f, 0.4f, 1.0f };
 };

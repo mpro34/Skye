@@ -19,8 +19,10 @@ namespace Skye {
 		virtual void UnBind() const override;
 
 		virtual void SetMat4(const std::string& name, const glm::mat4& matrix) override;
+		virtual void SetFloat(const std::string& name, const float& value) override;
 		virtual void SetFloat3(const std::string& name, const glm::vec3& values) override;
 		virtual void SetFloat4(const std::string& name, const glm::vec4& values) override;
+		virtual void SetInt(const std::string& name, const int& value) override;
 
 		virtual const std::string& GetName() const override { return m_Name; }
 
