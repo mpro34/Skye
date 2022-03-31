@@ -12,8 +12,8 @@ namespace Skye {
 	struct Renderer2DStorage
 	{
 		Ref<VertexArray> QuadVertexArray;
-		Ref<Shader> FlatColorShader;
 		Ref<Shader> TextureShader;
+		Ref<Texture2D> WhiteTexture;
 	};
 
 	static Renderer2DStorage* s_2DData;
@@ -42,8 +42,11 @@ namespace Skye {
 		indexBuffer2.reset(IndexBuffer::Create(indices2, sizeof(indices2) / sizeof(uint32_t)));
 		s_2DData->QuadVertexArray->SetIndexBuffer(indexBuffer2);
 
+		s_2DData->WhiteTexture = Texture2D::Create(1, 1);
+		uint32_t whiteTextureData = 0xffffffff; // Full white texture
+		s_2DData->WhiteTexture->SetData(&whiteTextureData, sizeof(whiteTextureData));
+
 		// Load shader from file
-		s_2DData->FlatColorShader = Shader::Create("assets/shaders/FlatColor.glsl");
 		s_2DData->TextureShader = Shader::Create("assets/shaders/Texture.glsl");
 		s_2DData->TextureShader->Bind();
 		s_2DData->TextureShader->SetInt("u_Texture", 0);
@@ -56,9 +59,6 @@ namespace Skye {
 
 	void Renderer2D::BeginScene(const OrthographicCamera& camera)
 	{
-		s_2DData->FlatColorShader->Bind();
-		s_2DData->FlatColorShader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
-
 		s_2DData->TextureShader->Bind();
 		s_2DData->TextureShader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
 	}
@@ -75,14 +75,13 @@ namespace Skye {
 
 	void Renderer2D::DrawQuad(const glm::vec3& position, const float rotation_angle, const glm::vec2& size, const glm::vec4& color)
 	{
-		s_2DData->FlatColorShader->Bind();
-		s_2DData->FlatColorShader->SetFloat4("u_Color", color);
+		s_2DData->TextureShader->SetFloat4("u_Color", color);
+		s_2DData->WhiteTexture->Bind();
 
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) *
 			glm::rotate(glm::mat4(1.0f), glm::radians(rotation_angle), glm::vec3(1.0f)) *
 			glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
-
-		s_2DData->FlatColorShader->SetMat4("u_Transform", transform);
+		s_2DData->TextureShader->SetMat4("u_Transform", transform);
 
 		s_2DData->QuadVertexArray->Bind();
 		RenderCommand::DrawIndexed(s_2DData->QuadVertexArray);
@@ -95,17 +94,13 @@ namespace Skye {
 
 	void Renderer2D::DrawQuad(const glm::vec3& position, const float rotation_angle, const glm::vec2& size, const Ref<Texture2D>& texture)
 	{
-		s_2DData->TextureShader->Bind();
+		s_2DData->TextureShader->SetFloat4("u_Color", glm::vec4(1.0f));
+		texture->Bind();
 
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) *
 			glm::rotate(glm::mat4(1.0f), glm::radians(rotation_angle), glm::vec3(1.0f)) *
 			glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
-
 		s_2DData->TextureShader->SetMat4("u_Transform", transform);
-		s_2DData->TextureShader->SetFloat4("u_Color", { 0.8f, 1.0f, 0.8f, 1.0f });
-		s_2DData->TextureShader->SetFloat("u_TextureSharpness", 10.0f);
-
-		texture->Bind();
 
 		s_2DData->QuadVertexArray->Bind();
 		RenderCommand::DrawIndexed(s_2DData->QuadVertexArray);

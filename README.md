@@ -50,3 +50,13 @@ This directory is the main entry point for the engine.
   - `RendererAPI`: Used to define the type of Graphics API in use.
   - `Shader`: Defines an abstraction to create, compile and use a shader program with a vertex and fragment shader.
   - `VertexArray`: Defines the concept of a vertex array that hold pointers to 1 or more vertex buffer and a single index buffer.
+
+### 2D Renderer
+TODO
+
+### Profiling
+TODO
+#### Visual Profiling
+TODO
+#### Instrumentation
+TODO

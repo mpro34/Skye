@@ -26,9 +26,8 @@ in vec2 v_TexCoord;
 
 uniform sampler2D u_Texture;
 uniform vec4 u_Color;
-uniform float u_TextureSharpness;
 			
 void main()
 {
-	color = texture(u_Texture, v_TexCoord * u_TextureSharpness) * u_Color;
+	color = texture(u_Texture, v_TexCoord * 10.0f) * u_Color;
 }

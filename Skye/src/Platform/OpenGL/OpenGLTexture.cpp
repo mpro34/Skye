@@ -17,22 +17,24 @@ namespace Skye {
 		m_Height = height;
 
 		// Based on the number of channels in the image, determine how to store the pixels and how to render them.
-		GLenum internalFormat = 0, dataFormat = 0;
+		GLenum InternalFormat = 0, DataFormat = 0;
 		if (channels == 4)
 		{
-			internalFormat = GL_RGBA8;
-			dataFormat = GL_RGBA;
+			InternalFormat = GL_RGBA8;
+			DataFormat = GL_RGBA;
 		}
 		else if (channels == 3)
 		{
-			internalFormat = GL_RGBA8;
-			dataFormat = GL_RGB;
+			InternalFormat = GL_RGBA8;
+			DataFormat = GL_RGB;
 		}
 
-		SK_CORE_ASSERT(internalFormat & dataFormat, "Format not supported for Texture!");
+		SK_CORE_ASSERT(InternalFormat & DataFormat, "Format not supported for Texture!");
+		m_InternalFormat = InternalFormat;
+		m_DataFormat = DataFormat;
 
 		glCreateTextures(GL_TEXTURE_2D, 1, &m_RendererID);
-		glTextureStorage2D(m_RendererID, 1, internalFormat, m_Width, m_Height);
+		glTextureStorage2D(m_RendererID, 1, m_InternalFormat, m_Width, m_Height);
 
 		glTextureParameteri(m_RendererID, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTextureParameteri(m_RendererID, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -41,14 +43,36 @@ namespace Skye {
 		glTextureParameteri(m_RendererID, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
 		// Upload texture data to GPU
-		glTextureSubImage2D(m_RendererID, 0, 0, 0, m_Width, m_Height, dataFormat, GL_UNSIGNED_BYTE, data);
+		glTextureSubImage2D(m_RendererID, 0, 0, 0, m_Width, m_Height, m_DataFormat, GL_UNSIGNED_BYTE, data);
 
 		stbi_image_free(data); // Free memory from CPU after storing on GPU
+	}
+
+	OpenGLTexture2D::OpenGLTexture2D(uint32_t width, uint32_t height)
+		: m_Width(width), m_Height(height)
+	{
+		// Based on the number of channels in the image, determine how to store the pixels and how to render them.
+		m_InternalFormat = GL_RGBA8;
+		m_DataFormat = GL_RGBA;
+
+		glCreateTextures(GL_TEXTURE_2D, 1, &m_RendererID);
+		glTextureStorage2D(m_RendererID, 1, m_InternalFormat, m_Width, m_Height);
+
+		glTextureParameteri(m_RendererID, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTextureParameteri(m_RendererID, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+		glTextureParameteri(m_RendererID, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTextureParameteri(m_RendererID, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	}
 
 	OpenGLTexture2D::~OpenGLTexture2D()
 	{
 		glDeleteTextures(1, &m_RendererID);
+	}
+
+	void OpenGLTexture2D::SetData(void* data, uint32_t size)
+	{
+		glTextureSubImage2D(m_RendererID, 0, 0, 0, m_Width, m_Height, m_DataFormat, GL_UNSIGNED_BYTE, data);
 	}
 
 	void OpenGLTexture2D::Bind(uint32_t slot) const
