@@ -14,6 +14,7 @@
 #include <unordered_set>
 
 #include "Skye/Core/Log.hpp"
+#include "Skye/Debug/Instrumentor.hpp"
 
 #ifdef SK_PLATFORM_WINDOWS
 	#include <Windows.h>

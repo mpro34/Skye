@@ -140,6 +140,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Skye\Debug\Instrumentor.hpp" />
     <ClInclude Include="src\Skye\Renderer\Renderer2D.hpp" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.hpp" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.hpp" />

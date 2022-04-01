@@ -52,6 +52,9 @@
     <Filter Include="vendor\stb_image">
       <UniqueIdentifier>{0DA0BA59-F998-D9AB-22CB-BE300E23B9B7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Skye\Debug">
+      <UniqueIdentifier>{b435f7c8-bbbc-4ba0-8063-62bb153a9184}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.hpp">
@@ -1412,6 +1415,9 @@
     </ClInclude>
     <ClInclude Include="src\Skye\Renderer\Renderer2D.hpp">
       <Filter>src\Skye\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Skye\Debug\Instrumentor.hpp">
+      <Filter>src\Skye\Debug</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
