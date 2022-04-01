@@ -89,7 +89,7 @@ namespace Skye {
 	// Run between begin and end
 	void ImGuiLayer::OnImGuiRender()
 	{
-		static bool show = true;
-		ImGui::ShowDemoWindow(&show);
+		//static bool show = true;
+		//ImGui::ShowDemoWindow(&show);
 	}
 }
