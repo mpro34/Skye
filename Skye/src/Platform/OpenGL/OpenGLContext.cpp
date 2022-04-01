@@ -14,6 +14,7 @@ namespace Skye {
 
 	void OpenGLContext::Init()
 	{
+		SK_PROFILE_FUNCTION();
 		glfwMakeContextCurrent(m_windowHandle);
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		SK_CORE_ASSERT(status, "Failed to initialize Glad!");
@@ -35,6 +36,8 @@ namespace Skye {
 	
 	void OpenGLContext::SwapBuffers()
 	{
+		SK_PROFILE_FUNCTION();
+
 		glfwSwapBuffers(m_windowHandle);
 	}
 }

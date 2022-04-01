@@ -23,6 +23,8 @@ namespace Skye {
 
 	WindowsWindow::WindowsWindow(const WindowProps& props)
 	{
+		SK_PROFILE_FUNCTION();
+
 		Init(props);
 	}
 
@@ -33,6 +35,8 @@ namespace Skye {
 
 	void WindowsWindow::Init(const WindowProps& props)
 	{
+		SK_PROFILE_FUNCTION();
+
 		m_Data.Title = props.Title;
 		m_Data.Width = props.Width;
 		m_Data.Height = props.Height;
@@ -151,12 +155,16 @@ namespace Skye {
 	}
 
 	void WindowsWindow::Shutdown()
-	{
+	{	
+		SK_PROFILE_FUNCTION();
+
 		glfwDestroyWindow(m_Window);
 	}
 
 	void WindowsWindow::OnUpdate()
 	{
+		SK_PROFILE_FUNCTION();
+
 		glfwPollEvents();
 		m_Context->SwapBuffers();
 	}

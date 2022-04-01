@@ -9,6 +9,8 @@ namespace Skye {
 
 	void Renderer::Init()
 	{
+		SK_PROFILE_FUNCTION();
+
 		RenderCommand::Init();
 		Renderer2D::Init();
 	}

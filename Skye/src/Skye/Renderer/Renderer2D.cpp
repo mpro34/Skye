@@ -20,6 +20,8 @@ namespace Skye {
 
 	void Renderer2D::Init()
 	{
+		SK_PROFILE_FUNCTION();
+
 		// Make pointer to static struct to ensure vertex array and shader data destructors are called.
 		s_2DData = new Renderer2DStorage();
 		s_2DData->QuadVertexArray = VertexArray::Create();
@@ -54,18 +56,22 @@ namespace Skye {
 	
 	void Renderer2D::Shutdown()
 	{
+		SK_PROFILE_FUNCTION();
+
 		delete s_2DData;
 	}
 
 	void Renderer2D::BeginScene(const OrthographicCamera& camera)
 	{
+		SK_PROFILE_FUNCTION();
+
 		s_2DData->TextureShader->Bind();
 		s_2DData->TextureShader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
 	}
 
 	void Renderer2D::EndScene()
 	{
-
+		SK_PROFILE_FUNCTION();
 	}
 
 	void Renderer2D::DrawQuad(const glm::vec2& position, const float rotation_angle, const glm::vec2& size, const glm::vec4& color)
@@ -75,6 +81,8 @@ namespace Skye {
 
 	void Renderer2D::DrawQuad(const glm::vec3& position, const float rotation_angle, const glm::vec2& size, const glm::vec4& color)
 	{
+		SK_PROFILE_FUNCTION();
+
 		s_2DData->TextureShader->SetFloat4("u_Color", color);
 		s_2DData->WhiteTexture->Bind();
 
@@ -94,6 +102,8 @@ namespace Skye {
 
 	void Renderer2D::DrawQuad(const glm::vec3& position, const float rotation_angle, const glm::vec2& size, const Ref<Texture2D>& texture)
 	{
+		SK_PROFILE_FUNCTION();
+
 		s_2DData->TextureShader->SetFloat4("u_Color", glm::vec4(1.0f));
 		texture->Bind();
 

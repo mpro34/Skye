@@ -1,1 +1,1 @@
-{"otherData": {},"traceEvents":[]}
+{"otherData": {},"traceEvents":[{"cat":"function","dur":1,"name":"__cdecl Skye::Application::~Application(void)","ph":"X","pid":0,"tid":3727750144,"ts":275285802960},{"cat":"function","dur":55,"name":"__cdecl Skye::OpenGLTexture2D::~OpenGLTexture2D(void)","ph":"X","pid":0,"tid":3727750144,"ts":275285803051},{"cat":"function","dur":22197,"name":"void __cdecl Skye::WindowsWindow::Shutdown(void)","ph":"X","pid":0,"tid":3727750144,"ts":275285803193}]}

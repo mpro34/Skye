@@ -21,6 +21,8 @@ namespace Skye {
 
 	OpenGLShader::OpenGLShader(const std::string& filePath)
 	{
+		SK_PROFILE_FUNCTION();
+
 		std::string source = ReadFile(filePath);
 		auto shaderSources = PreProcess(source);
 		Compile(shaderSources);
@@ -36,6 +38,8 @@ namespace Skye {
 	OpenGLShader::OpenGLShader(const std::string name, const std::string& vertexSrc, const std::string& fragmentSrc)
 		: m_Name(name)
 	{
+		SK_PROFILE_FUNCTION();
+
 		std::unordered_map<GLenum, std::string> sources;
 		sources[GL_VERTEX_SHADER] = vertexSrc;
 		sources[GL_FRAGMENT_SHADER] = fragmentSrc;
@@ -44,41 +48,57 @@ namespace Skye {
 
 	OpenGLShader::~OpenGLShader()
 	{
+		SK_PROFILE_FUNCTION();
+
 		glDeleteProgram(m_RendererID);
 	}
 
 	void OpenGLShader::Bind() const
 	{
+		SK_PROFILE_FUNCTION();
+
 		glUseProgram(m_RendererID);
 	}
 
 	void OpenGLShader::UnBind() const
 	{
+		SK_PROFILE_FUNCTION();
+
 		glUseProgram(0);
 	}
 
 	void OpenGLShader::SetMat4(const std::string& name, const glm::mat4& matrix)
 	{
+		SK_PROFILE_FUNCTION();
+
 		UploadUniformMat4(name, matrix);
 	}
 
 	void OpenGLShader::SetFloat(const std::string& name, const float& value)
 	{
+		SK_PROFILE_FUNCTION();
+
 		UploadUniformFloat(name, value);
 	}
 
 	void OpenGLShader::SetFloat3(const std::string& name, const glm::vec3& values)
 	{
+		SK_PROFILE_FUNCTION();
+
 		UploadUniformFloat3(name, values);
 	}
 
 	void OpenGLShader::SetFloat4(const std::string& name, const glm::vec4& values)
 	{
+		SK_PROFILE_FUNCTION();
+
 		UploadUniformFloat4(name, values);
 	}
 
 	void OpenGLShader::SetInt(const std::string& name, const int& value)
 	{
+		SK_PROFILE_FUNCTION();
+
 		UploadUniformInt(name, value);
 	}
 
@@ -126,6 +146,8 @@ namespace Skye {
 
 	std::string OpenGLShader::ReadFile(const std::string& filePath)
 	{
+		SK_PROFILE_FUNCTION();
+
 		std::string result;
 		std::ifstream in(filePath, std::ios::in | std::ios::binary);
 		if (in)
@@ -146,6 +168,8 @@ namespace Skye {
 	// Parse the shader source string and separate the Fragment and Vertex shaders into an unordered map
 	std::unordered_map<GLenum, std::string> OpenGLShader::PreProcess(const std::string& source)
 	{
+		SK_PROFILE_FUNCTION();
+
 		std::unordered_map<GLenum, std::string> shaderSources;
 
 		const char* typeToken = "#type";
@@ -171,6 +195,8 @@ namespace Skye {
 
 	void OpenGLShader::Compile(const std::unordered_map<GLenum, std::string>& shaderSources)
 	{
+		SK_PROFILE_FUNCTION();
+
 		GLuint program = glCreateProgram();
 		SK_CORE_ASSERT(shaderSources.size() <= 2, "Only 2 shaders supported!");
 		std::array<GLenum, 2> glShaderIDs;

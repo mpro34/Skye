@@ -7,6 +7,8 @@ namespace Skye {
 
 	void OpenGLRendererAPI::Init()
 	{
+		SK_PROFILE_FUNCTION();
+
 		glEnable(GL_BLEND); // Enable blending for textures
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		
