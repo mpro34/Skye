@@ -22,8 +22,7 @@ public:
 			0.5f, -0.5f, 0.0f, 0.2f, 0.2f, 0.8f, 1.0f,
 			0.0f, 0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
 		};
-		Skye::Ref<Skye::VertexBuffer> vertexBuffer;
-		vertexBuffer.reset(Skye::VertexBuffer::Create(vertices, sizeof(vertices)));
+		Skye::Ref<Skye::VertexBuffer> vertexBuffer = Skye::VertexBuffer::Create(vertices, sizeof(vertices));
 		// Describe layout of vertex buffer (no vertex arrays in D3D!)
 		Skye::BufferLayout layout = {
 			{ Skye::ShaderDataType::Float3, "a_Position" },
@@ -32,8 +31,7 @@ public:
 		vertexBuffer->SetLayout(layout);
 		m_TriangleVA->AddVertexBuffer(vertexBuffer);
 		uint32_t indices[3] = { 0, 1, 2 };
-		Skye::Ref<Skye::IndexBuffer> indexBuffer;
-		indexBuffer.reset(Skye::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+		Skye::Ref<Skye::IndexBuffer> indexBuffer = Skye::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
 		m_TriangleVA->SetIndexBuffer(indexBuffer);
 
 		// -- Create Square -- //
@@ -44,16 +42,14 @@ public:
 			0.5f, 0.5f, 0.0f, 1.0f, 1.0f,
 			-0.5f, 0.5f, 0.0f, 0.0f, 1.0f
 		};
-		Skye::Ref<Skye::VertexBuffer> squareVB;
-		squareVB.reset(Skye::VertexBuffer::Create(vertices2, sizeof(vertices2)));
+		Skye::Ref<Skye::VertexBuffer> squareVB = Skye::VertexBuffer::Create(vertices2, sizeof(vertices2));
 		squareVB->SetLayout({
 			{Skye::ShaderDataType::Float3, "a_Position"},
 			{Skye::ShaderDataType::Float2, "a_TexCoord"}
 		});
 		m_SquareVA->AddVertexBuffer(squareVB);
 		uint32_t indices2[6] = { 0, 1, 2, 2, 3, 0 };
-		Skye::Ref<Skye::IndexBuffer> indexBuffer2;
-		indexBuffer2.reset(Skye::IndexBuffer::Create(indices2, sizeof(indices2) / sizeof(uint32_t)));
+		Skye::Ref<Skye::IndexBuffer> indexBuffer2 = Skye::IndexBuffer::Create(indices2, sizeof(indices2) / sizeof(uint32_t));
 		m_SquareVA->SetIndexBuffer(indexBuffer2);
 
 		// Create and bind shader
