@@ -26,7 +26,7 @@
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -140,8 +140,6 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\Skye\Debug\Instrumentor.hpp" />
-    <ClInclude Include="src\Skye\Renderer\Renderer2D.hpp" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.hpp" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.hpp" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.hpp" />
@@ -163,6 +161,7 @@
     <ClInclude Include="src\Skye\Core\MouseButtonCodes.hpp" />
     <ClInclude Include="src\Skye\Core\Timestep.hpp" />
     <ClInclude Include="src\Skye\Core\Window.hpp" />
+    <ClInclude Include="src\Skye\Debug\Instrumentor.hpp" />
     <ClInclude Include="src\Skye\Events\ApplicationEvent.hpp" />
     <ClInclude Include="src\Skye\Events\Event.hpp" />
     <ClInclude Include="src\Skye\Events\KeyEvent.hpp" />
@@ -173,6 +172,7 @@
     <ClInclude Include="src\Skye\Renderer\GraphicsContext.hpp" />
     <ClInclude Include="src\Skye\Renderer\RenderCommand.hpp" />
     <ClInclude Include="src\Skye\Renderer\Renderer.hpp" />
+    <ClInclude Include="src\Skye\Renderer\Renderer2D.hpp" />
     <ClInclude Include="src\Skye\Renderer\RendererAPI.hpp" />
     <ClInclude Include="src\Skye\Renderer\Shader.hpp" />
     <ClInclude Include="src\Skye\Renderer\Texture.hpp" />
@@ -596,7 +596,6 @@
     <ClInclude Include="vendor\stb_image\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Skye\Renderer\Renderer2D.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
@@ -616,6 +615,7 @@
     <ClCompile Include="src\Skye\Renderer\Camera.cpp" />
     <ClCompile Include="src\Skye\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\Skye\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\Skye\Renderer\Renderer2D.cpp" />
     <ClCompile Include="src\Skye\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\Skye\Renderer\Shader.cpp" />
     <ClCompile Include="src\Skye\Renderer\Texture.cpp" />
