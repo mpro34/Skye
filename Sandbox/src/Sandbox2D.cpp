@@ -42,7 +42,8 @@ void Sandbox2D::OnUpdate(Skye::Timestep ts)
 		//Skye::Renderer2D::DrawQuad({ 0.0f, 0.0f }, 45.0f, { 1.0f, 1.0f }, { 0.8f, 0.2f, 0.1f, 1.0f });
 		Skye::Renderer2D::DrawQuad({ 0.0f, 0.0f }, 0.0f, { 1.0f, 1.0f }, { 0.8f, 0.2f, 0.1f, 1.0f });
 		Skye::Renderer2D::DrawQuad({ -1.0f, 0.0f }, 0.0f, { 0.5f, 1.5f }, { 0.1f, 0.2f, 0.8f, 1.0f });
-		//Skye::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f }, 0.0f, { 10.0f, 10.0f }, m_Texture, 1.0f, glm::vec4(0.9f, 1.0f, 0.9f, 1.0f));
+		Skye::Renderer2D::DrawQuad({ -5.0f, -5.0f, -0.1f }, { 10.0f, 10.0f }, m_Texture, 1.0f);
+		Skye::Renderer2D::DrawQuad({ -0.5f, -0.5f, 0.0f }, { 1.0f, 1.0f }, m_Texture, 20.0f);
 		Skye::Renderer2D::EndScene();
 	}
 }

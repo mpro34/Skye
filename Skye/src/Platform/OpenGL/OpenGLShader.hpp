@@ -23,10 +23,12 @@ namespace Skye {
 		virtual void SetFloat3(const std::string& name, const glm::vec3& values) override;
 		virtual void SetFloat4(const std::string& name, const glm::vec4& values) override;
 		virtual void SetInt(const std::string& name, const int& value) override;
+		virtual void SetIntArray(const std::string& name, int* values, uint32_t count) override;
 
 		virtual const std::string& GetName() const override { return m_Name; }
 
 		void UploadUniformInt(const std::string name, int value);
+		void UploadUniformIntArray(const std::string& name, int* values, uint32_t count);
 
 		void UploadUniformFloat(const std::string name, const float value);
 		void UploadUniformFloat2(const std::string name, const glm::vec2& values);
