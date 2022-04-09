@@ -38,6 +38,8 @@ namespace Skye {
 		// Store unique ids of each of the 32 texture slots that are bound
 		std::array<Ref<Texture2D>, MAX_TEXTURE_SLOTS> TextureSlots;
 		uint32_t TexutreSlotIndex = 1;
+
+		glm::vec4 QuadVertexPositions[4];
 	};
 
 	static Renderer2DData s_2DData;
@@ -98,6 +100,11 @@ namespace Skye {
 
 		// Set default white texture
 		s_2DData.TextureSlots[0] = s_2DData.WhiteTexture;
+
+		s_2DData.QuadVertexPositions[0] = { -0.5f, -0.5f, 0.0f, 1.0f };
+		s_2DData.QuadVertexPositions[1] = { 0.5f, -0.5f, 0.0f, 1.0f };
+		s_2DData.QuadVertexPositions[2] = { 0.5f, 0.5f, 0.0f, 1.0f };
+		s_2DData.QuadVertexPositions[3] = { -0.5f, 0.5f, 0.0f, 1.0f };
 	}
 	
 	void Renderer2D::Shutdown()
@@ -150,28 +157,32 @@ namespace Skye {
 		const float textureIndex = 0.0f; // default white texture
 		const float tilingMultiplier = 1.0f;
 
-		s_2DData.QuadVertexBufferPtr->Position = position;
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
+			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation_angle), { 0.0f, 0.0f, 1.0f })
+			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
+
+		s_2DData.QuadVertexBufferPtr->Position = transform * s_2DData.QuadVertexPositions[0];
 		s_2DData.QuadVertexBufferPtr->Color = color;
 		s_2DData.QuadVertexBufferPtr->TexCoord = {0.0f, 0.0f};
 		s_2DData.QuadVertexBufferPtr->TexIndex = textureIndex;
 		s_2DData.QuadVertexBufferPtr->TilingFactor = tilingMultiplier;
 		s_2DData.QuadVertexBufferPtr++;
 
-		s_2DData.QuadVertexBufferPtr->Position = { position.x + size.x, position.y, 0.0f };
+		s_2DData.QuadVertexBufferPtr->Position = transform * s_2DData.QuadVertexPositions[1];
 		s_2DData.QuadVertexBufferPtr->Color = color;
 		s_2DData.QuadVertexBufferPtr->TexCoord = { 1.0f, 0.0f };
 		s_2DData.QuadVertexBufferPtr->TexIndex = textureIndex;
 		s_2DData.QuadVertexBufferPtr->TilingFactor = tilingMultiplier;
 		s_2DData.QuadVertexBufferPtr++;
 
-		s_2DData.QuadVertexBufferPtr->Position = { position.x + size.x, position.y + size.y, 0.0f };
+		s_2DData.QuadVertexBufferPtr->Position = transform * s_2DData.QuadVertexPositions[2];
 		s_2DData.QuadVertexBufferPtr->Color = color;
 		s_2DData.QuadVertexBufferPtr->TexCoord = { 0.0f, 1.0f };
 		s_2DData.QuadVertexBufferPtr->TexIndex = textureIndex;
 		s_2DData.QuadVertexBufferPtr->TilingFactor = tilingMultiplier;
 		s_2DData.QuadVertexBufferPtr++;
 
-		s_2DData.QuadVertexBufferPtr->Position = { position.x, position.y + size.y, 0.0f };
+		s_2DData.QuadVertexBufferPtr->Position = transform * s_2DData.QuadVertexPositions[3];
 		s_2DData.QuadVertexBufferPtr->Color = color;
 		s_2DData.QuadVertexBufferPtr->TexCoord = { 1.0f, 1.0f };
 		s_2DData.QuadVertexBufferPtr->TexIndex = textureIndex;
@@ -179,25 +190,14 @@ namespace Skye {
 		s_2DData.QuadVertexBufferPtr++;
 
 		s_2DData.QuadIndexCount += 6; // Add 6 more indices	
-
-		//s_2DData.TextureShader->SetFloat("u_TileMultiplier", 1.0f);
-		//s_2DData.WhiteTexture->Bind();
-
-		//glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) *
-		//	glm::rotate(glm::mat4(1.0f), glm::radians(rotation_angle), {0.0f, 0.0f, 1.0f}) *
-		//	glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
-		//s_2DData.TextureShader->SetMat4("u_Transform", transform);
-
-		//s_2DData.QuadVertexArray->Bind();
-		//RenderCommand::DrawIndexed(s_2DData.QuadVertexArray);
 	}
 
-	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<Texture2D>& texture, float tileMultiplier, const glm::vec4& tintColor, const float rotation_angle)
+	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const float rotation_angle, const Ref<Texture2D>& texture, float tileMultiplier, const glm::vec4& tintColor)
 	{
-		DrawQuad({ position.x, position.y, 0.0f }, size, texture, tileMultiplier, tintColor, rotation_angle);
+		DrawQuad({ position.x, position.y, 0.0f }, size, rotation_angle, texture, tileMultiplier, tintColor);
 	}
 
-	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture, float tileMultiplier, const glm::vec4& tintColor, const float rotation_angle)
+	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const float rotation_angle, const Ref<Texture2D>& texture, float tileMultiplier, const glm::vec4& tintColor)
 	{
 		SK_PROFILE_FUNCTION();
 
@@ -221,48 +221,38 @@ namespace Skye {
 			s_2DData.TexutreSlotIndex++;
 		}
 
-		s_2DData.QuadVertexBufferPtr->Position = position;
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
+			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation_angle), { 0.0f, 0.0f, 1.0f })
+			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
+
+		s_2DData.QuadVertexBufferPtr->Position = transform * s_2DData.QuadVertexPositions[0];
 		s_2DData.QuadVertexBufferPtr->Color = color;
 		s_2DData.QuadVertexBufferPtr->TexCoord = { 0.0f, 0.0f };
 		s_2DData.QuadVertexBufferPtr->TexIndex = textureIndex;
 		s_2DData.QuadVertexBufferPtr->TilingFactor = tileMultiplier;
 		s_2DData.QuadVertexBufferPtr++;
 
-		s_2DData.QuadVertexBufferPtr->Position = { position.x + size.x, position.y, 0.0f };
+		s_2DData.QuadVertexBufferPtr->Position = transform * s_2DData.QuadVertexPositions[1];
 		s_2DData.QuadVertexBufferPtr->Color = color;
 		s_2DData.QuadVertexBufferPtr->TexCoord = { 1.0f, 0.0f };
 		s_2DData.QuadVertexBufferPtr->TexIndex = textureIndex;
 		s_2DData.QuadVertexBufferPtr->TilingFactor = tileMultiplier;
 		s_2DData.QuadVertexBufferPtr++;
 
-		s_2DData.QuadVertexBufferPtr->Position = { position.x + size.x, position.y + size.y, 0.0f };
+		s_2DData.QuadVertexBufferPtr->Position = transform * s_2DData.QuadVertexPositions[2];
 		s_2DData.QuadVertexBufferPtr->Color = color;
 		s_2DData.QuadVertexBufferPtr->TexCoord = { 0.0f, 1.0f };
 		s_2DData.QuadVertexBufferPtr->TexIndex = textureIndex;
 		s_2DData.QuadVertexBufferPtr->TilingFactor = tileMultiplier;
 		s_2DData.QuadVertexBufferPtr++;
 
-		s_2DData.QuadVertexBufferPtr->Position = { position.x, position.y + size.y, 0.0f };
+		s_2DData.QuadVertexBufferPtr->Position = transform * s_2DData.QuadVertexPositions[3];
 		s_2DData.QuadVertexBufferPtr->Color = color;
 		s_2DData.QuadVertexBufferPtr->TexCoord = { 1.0f, 1.0f };
 		s_2DData.QuadVertexBufferPtr->TexIndex = textureIndex;
 		s_2DData.QuadVertexBufferPtr->TilingFactor = tileMultiplier;
 		s_2DData.QuadVertexBufferPtr++;
 
-		s_2DData.QuadIndexCount += 6; // Add 6 more indices	
-
-#if NOT_USED
-		s_2DData.TextureShader->SetFloat4("u_Color", tintColor);
-		s_2DData.TextureShader->SetFloat("u_TileMultiplier", tileMultiplier);
-		texture->Bind();
-
-		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) *
-			glm::rotate(glm::mat4(1.0f), glm::radians(rotation_angle), { 0.0f, 0.0f, 1.0f }) *
-			glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
-		s_2DData.TextureShader->SetMat4("u_Transform", transform);
-
-		s_2DData.QuadVertexArray->Bind();
-		RenderCommand::DrawIndexed(s_2DData.QuadVertexArray);
-#endif	
+		s_2DData.QuadIndexCount += 6; // Add 6 more indices		
 	}
 }

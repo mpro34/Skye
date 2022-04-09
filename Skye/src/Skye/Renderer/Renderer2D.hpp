@@ -18,7 +18,7 @@ namespace Skye {
 		//  Primitives - rotation in degrees
 		static void DrawQuad(const glm::vec2& position, const float rotation_angle, const glm::vec2& size, const glm::vec4& color);
 		static void DrawQuad(const glm::vec3& position, const float rotation_angle, const glm::vec2& size, const glm::vec4& color);
-		static void DrawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<Texture2D>& texture, float tileMultiplier = 1.0f, const glm::vec4& tintColor = glm::vec4(1.0f), const float rotation_angle = 0.0);
-		static void DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture, float tileMultiplier = 1.0f, const glm::vec4& tintColor = glm::vec4(1.0f), const float rotation_angle = 0.0f);
+		static void DrawQuad(const glm::vec2& position, const glm::vec2& size, const float rotation_angle, const Ref<Texture2D>& texture, float tileMultiplier = 1.0f, const glm::vec4& tintColor = glm::vec4(1.0f));
+		static void DrawQuad(const glm::vec3& position, const glm::vec2& size, const float rotation_angle, const Ref<Texture2D>& texture, float tileMultiplier = 1.0f, const glm::vec4& tintColor = glm::vec4(1.0f));
 	};
 }
