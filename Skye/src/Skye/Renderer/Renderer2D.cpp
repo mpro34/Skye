@@ -21,9 +21,9 @@ namespace Skye {
 	struct Renderer2DData
 	{
 		// Max for any given draw call
-		const uint32_t MAX_QUADS = 10000;
-		const uint32_t MAX_VERTICES = MAX_QUADS * 4;
-		const uint32_t MAX_INDICES = MAX_QUADS * 6;
+		static const uint32_t MAX_QUADS = 20000;
+		static const uint32_t MAX_VERTICES = MAX_QUADS * 4;
+		static const uint32_t MAX_INDICES = MAX_QUADS * 6;
 		static const uint32_t MAX_TEXTURE_SLOTS = 32; // RenderCapabilities
 
 		Ref<VertexArray> QuadVertexArray;
@@ -40,6 +40,8 @@ namespace Skye {
 		uint32_t TexutreSlotIndex = 1;
 
 		glm::vec4 QuadVertexPositions[4];
+
+		Renderer2D::Statistics Stats;
 	};
 
 	static Renderer2DData s_2DData;
@@ -143,6 +145,22 @@ namespace Skye {
 			s_2DData.TextureSlots[i]->Bind(i);
 		}
 		RenderCommand::DrawIndexed(s_2DData.QuadVertexArray, s_2DData.QuadIndexCount);
+		// Increment number of draw calls in statistics
+		s_2DData.Stats.DrawCalls++;
+	}
+
+	/*
+	* @brief This function is used to reset the index and texture slots if drawing more than 32 quads.
+	* It differs from BeginScene(), because we don't need to rebind the texture shader or use the camera!
+	*/
+	void Renderer2D::FlushAndReset()
+	{
+		EndScene();
+
+		s_2DData.QuadIndexCount = 0;
+		s_2DData.QuadVertexBufferPtr = s_2DData.QuadVertexBufferBase;
+
+		s_2DData.TexutreSlotIndex = 1;
 	}
 
 	void Renderer2D::DrawQuad(const glm::vec2& position, const float rotation_angle, const glm::vec2& size, const glm::vec4& color)
@@ -153,6 +171,11 @@ namespace Skye {
 	void Renderer2D::DrawQuad(const glm::vec3& position, const float rotation_angle, const glm::vec2& size, const glm::vec4& color)
 	{
 		SK_PROFILE_FUNCTION();
+
+		if (s_2DData.QuadIndexCount >= Renderer2DData::MAX_INDICES)
+		{
+			FlushAndReset();
+		}
 
 		const float textureIndex = 0.0f; // default white texture
 		const float tilingMultiplier = 1.0f;
@@ -190,6 +213,9 @@ namespace Skye {
 		s_2DData.QuadVertexBufferPtr++;
 
 		s_2DData.QuadIndexCount += 6; // Add 6 more indices	
+
+		// Increment stats
+		s_2DData.Stats.QuadCount++;
 	}
 
 	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const float rotation_angle, const Ref<Texture2D>& texture, float tileMultiplier, const glm::vec4& tintColor)
@@ -200,6 +226,11 @@ namespace Skye {
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const float rotation_angle, const Ref<Texture2D>& texture, float tileMultiplier, const glm::vec4& tintColor)
 	{
 		SK_PROFILE_FUNCTION();
+
+		if (s_2DData.QuadIndexCount >= Renderer2DData::MAX_INDICES)
+		{
+			FlushAndReset();
+		}
 
 		constexpr glm::vec4 color = { 1.0f, 1.0f, 1.0f, 1.0f };
 
@@ -253,6 +284,21 @@ namespace Skye {
 		s_2DData.QuadVertexBufferPtr->TilingFactor = tileMultiplier;
 		s_2DData.QuadVertexBufferPtr++;
 
-		s_2DData.QuadIndexCount += 6; // Add 6 more indices		
+		s_2DData.QuadIndexCount += 6; // Add 6 more indices
+
+		// Increment stats
+		s_2DData.Stats.QuadCount++;
 	}
+
+	Renderer2D::Statistics Renderer2D::GetStats()
+	{
+		return s_2DData.Stats;
+	}
+
+	void Renderer2D::ResetStats()
+	{
+		memset(&s_2DData.Stats, 0, sizeof(Statistics));
+	}
+
 }
+
