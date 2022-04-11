@@ -20,7 +20,7 @@ namespace Skye {
 
 	struct Renderer2DData
 	{
-		// Max for any given draw call
+		// Max quads to draw in a single draw call
 		static const uint32_t MAX_QUADS = 20000;
 		static const uint32_t MAX_VERTICES = MAX_QUADS * 4;
 		static const uint32_t MAX_INDICES = MAX_QUADS * 6;

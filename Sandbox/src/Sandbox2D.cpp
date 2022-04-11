@@ -44,10 +44,10 @@ void Sandbox2D::OnUpdate(Skye::Timestep ts)
 		SK_PROFILE_SCOPE("Sandbox2D Render draw");
 		Skye::Renderer2D::BeginScene(m_CameraController.GetCamera());
 
-		Skye::Renderer2D::DrawQuad({ 1.0f, 0.0f }, rotation, { 1.0f, 1.0f }, { 0.8f, 0.2f, 0.1f, 1.0f }); // red square
+		Skye::Renderer2D::DrawQuad({ 1.0f, 0.0f }, 45.0f, { 1.0f, 1.0f }, { 0.8f, 0.2f, 0.1f, 1.0f }); // red square
 		Skye::Renderer2D::DrawQuad({ -1.0f, 0.0f }, 0.0f, { 0.5f, 1.5f }, { 0.1f, 0.2f, 0.8f, 1.0f }); // blue rectangle
-		Skye::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f }, { 20.0f, 20.0f }, 0.0f, m_Texture, 10.0f); // Textured square
-		Skye::Renderer2D::DrawQuad({ 0.0f, 0.0f, 0.0f }, { 1.0f, 1.0f }, 45.0f, m_Texture, 20.0f); // Background
+		Skye::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f }, { 20.0f, 20.0f }, 0.0f, m_Texture, 10.0f); // Background texture
+		Skye::Renderer2D::DrawQuad({ 0.0f, 0.0f, 0.0f }, { 1.0f, 1.0f }, rotation, m_Texture, 20.0f); // Textured square
 
 		Skye::Renderer2D::EndScene();
 
