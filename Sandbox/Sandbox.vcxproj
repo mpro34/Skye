@@ -131,9 +131,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\ParticleSystem.hpp" />
     <ClInclude Include="src\Sandbox2D.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\ParticleSystem.cpp" />
     <ClCompile Include="src\Sandbox2D.cpp" />
     <ClCompile Include="src\SandboxApp.cpp" />
   </ItemGroup>

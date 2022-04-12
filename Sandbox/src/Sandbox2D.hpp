@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Skye.hpp>
+#include "ParticleSystem.hpp"
 
 class Sandbox2D : public Skye::Layer
 {
@@ -22,4 +23,7 @@ private:
 	Skye::Ref<Skye::Texture2D> m_Texture;
 
 	glm::vec4 m_SquareColor = { 0.2f, 0.3f, 0.4f, 1.0f };
+
+	ParticleProps m_Particle;
+	ParticleSystem m_ParticleSystem;
 };

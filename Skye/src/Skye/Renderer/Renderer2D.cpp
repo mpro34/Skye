@@ -181,7 +181,7 @@ namespace Skye {
 		const float tilingMultiplier = 1.0f;
 
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
-			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation_angle), { 0.0f, 0.0f, 1.0f })
+			* glm::rotate(glm::mat4(1.0f), rotation_angle, { 0.0f, 0.0f, 1.0f })
 			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
 
 		s_2DData.QuadVertexBufferPtr->Position = transform * s_2DData.QuadVertexPositions[0];
@@ -253,7 +253,7 @@ namespace Skye {
 		}
 
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
-			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation_angle), { 0.0f, 0.0f, 1.0f })
+			* glm::rotate(glm::mat4(1.0f), rotation_angle, { 0.0f, 0.0f, 1.0f })
 			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
 
 		s_2DData.QuadVertexBufferPtr->Position = transform * s_2DData.QuadVertexPositions[0];
