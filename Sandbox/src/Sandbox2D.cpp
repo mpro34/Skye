@@ -13,6 +13,7 @@ Sandbox2D::Sandbox2D()
 void Sandbox2D::OnAttach()
 {
 	m_Texture = Skye::Texture2D::Create("assets/textures/Checkerboard.png");
+	m_SpriteSheet = Skye::Texture2D::Create("assets/game/textures/towerDefense_tilesheet@2.png");
 	// Initialize particle props
 	m_Particle.ColorBegin = { 254 / 255.0f, 212 / 255.0f, 123 / 255.0f, 1.0f };
 	m_Particle.ColorEnd = { 254 / 255.0f, 109 / 255.0f, 41 / 255.0f, 1.0f };
@@ -45,6 +46,7 @@ void Sandbox2D::OnUpdate(Skye::Timestep ts)
 		Skye::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 0 });
 		Skye::RenderCommand::Clear();
 	}
+#if 0
 	{
 		static float rotation = 0.0f;
 		rotation += ts * 40.0f;
@@ -70,7 +72,13 @@ void Sandbox2D::OnUpdate(Skye::Timestep ts)
 		}
 		Skye::Renderer2D::EndScene();
 	}
+#endif
+	// Draw sprite sheet
+	Skye::Renderer2D::BeginScene(m_CameraController.GetCamera());
+	Skye::Renderer2D::DrawQuad({ 0.0f, 0.0f, 0.2f }, { 1.0f, 1.0f }, glm::radians(0.0f), m_SpriteSheet); // Background texture
+	Skye::Renderer2D::EndScene();
 
+	// Draw Particles on mouse cursor
 	if (Skye::Input::IsMouseButtonPressed(SK_MOUSE_BUTTON_LEFT))
 	{
 		auto [x, y] = Skye::Input::GetMousePosition();

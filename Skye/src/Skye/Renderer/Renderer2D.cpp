@@ -227,6 +227,11 @@ namespace Skye {
 	{
 		SK_PROFILE_FUNCTION();
 
+		// Texture location in spritesheet
+		constexpr float x = 18, y = 1;
+		constexpr float sheetWidth = 2944.0f, sheetHeight = 1664.0f;
+		constexpr float spriteWidth = 128.0f, spriteHeight = 128.0f;
+
 		if (s_2DData.QuadIndexCount >= Renderer2DData::MAX_INDICES)
 		{
 			FlushAndReset();
@@ -258,28 +263,28 @@ namespace Skye {
 
 		s_2DData.QuadVertexBufferPtr->Position = transform * s_2DData.QuadVertexPositions[0];
 		s_2DData.QuadVertexBufferPtr->Color = color;
-		s_2DData.QuadVertexBufferPtr->TexCoord = { 0.0f, 0.0f };
+		s_2DData.QuadVertexBufferPtr->TexCoord = { (x * spriteWidth) / sheetWidth, (y * spriteHeight) / sheetHeight };
 		s_2DData.QuadVertexBufferPtr->TexIndex = textureIndex;
 		s_2DData.QuadVertexBufferPtr->TilingFactor = tileMultiplier;
 		s_2DData.QuadVertexBufferPtr++;
 
 		s_2DData.QuadVertexBufferPtr->Position = transform * s_2DData.QuadVertexPositions[1];
 		s_2DData.QuadVertexBufferPtr->Color = color;
-		s_2DData.QuadVertexBufferPtr->TexCoord = { 1.0f, 0.0f };
+		s_2DData.QuadVertexBufferPtr->TexCoord = { ((x+1) * spriteWidth) / sheetWidth, (y * spriteHeight) / sheetHeight };
 		s_2DData.QuadVertexBufferPtr->TexIndex = textureIndex;
 		s_2DData.QuadVertexBufferPtr->TilingFactor = tileMultiplier;
 		s_2DData.QuadVertexBufferPtr++;
 
 		s_2DData.QuadVertexBufferPtr->Position = transform * s_2DData.QuadVertexPositions[2];
 		s_2DData.QuadVertexBufferPtr->Color = color;
-		s_2DData.QuadVertexBufferPtr->TexCoord = { 0.0f, 1.0f };
+		s_2DData.QuadVertexBufferPtr->TexCoord = { ((x+1) * spriteWidth) / sheetWidth, ((y+1) * spriteHeight) / sheetHeight };
 		s_2DData.QuadVertexBufferPtr->TexIndex = textureIndex;
 		s_2DData.QuadVertexBufferPtr->TilingFactor = tileMultiplier;
 		s_2DData.QuadVertexBufferPtr++;
 
 		s_2DData.QuadVertexBufferPtr->Position = transform * s_2DData.QuadVertexPositions[3];
 		s_2DData.QuadVertexBufferPtr->Color = color;
-		s_2DData.QuadVertexBufferPtr->TexCoord = { 1.0f, 1.0f };
+		s_2DData.QuadVertexBufferPtr->TexCoord = { (x * spriteWidth) / sheetWidth, ((y+1) * spriteHeight) / sheetHeight };
 		s_2DData.QuadVertexBufferPtr->TexIndex = textureIndex;
 		s_2DData.QuadVertexBufferPtr->TilingFactor = tileMultiplier;
 		s_2DData.QuadVertexBufferPtr++;
