@@ -51,12 +51,6 @@ This directory is the main entry point for the engine.
   - `Shader`: Defines an abstraction to create, compile and use a shader program with a vertex and fragment shader.
   - `VertexArray`: Defines the concept of a vertex array that hold pointers to 1 or more vertex buffer and a single index buffer.
 
-### 2D Renderer
-TODO
-
-### Profiling
-TODO
-#### Visual Profiling
-TODO
-#### Instrumentation
-TODO
+### 2D Sprite Sheet Render Example
+Skye allows for rendering of 2d sprite, given a sprite sheet and coordinates on said spritesheet. Also, with Skye running, clicking the left mouse button will generate particles at the cursor's position.
+![2D Sprites Render](https://github.com/mpro34/MagicMayhem/blob/master/Screenshots/Skye_sprite1.jpg)
