@@ -53,4 +53,4 @@ This directory is the main entry point for the engine.
 
 ### 2D Sprite Sheet Render Example
 Skye allows for rendering of 2d sprite, given a sprite sheet and coordinates on said spritesheet. Also, with Skye running, clicking the left mouse button will generate particles at the cursor's position.
-![2D Sprites Render](https://github.com/mpro34/MagicMayhem/blob/master/Screenshots/Skye_sprite1.jpg)
+![2D Sprites Render](https://github.com/mpro34/Skye/blob/main/Screenshots/Skye_sprite1.jpg)
