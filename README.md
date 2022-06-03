@@ -51,6 +51,7 @@ This directory is the main entry point for the engine.
   - `Shader`: Defines an abstraction to create, compile and use a shader program with a vertex and fragment shader.
   - `VertexArray`: Defines the concept of a vertex array that hold pointers to 1 or more vertex buffer and a single index buffer.
 
-### 2D Sprite Sheet Render Example
-Skye allows for rendering of 2d sprite, given a sprite sheet and coordinates on said spritesheet. Also, with Skye running, clicking the left mouse button will generate particles at the cursor's position.
-![2D Sprites Render](https://github.com/mpro34/Skye/blob/main/Screenshots/Skye_sprite1.jpg)
+### 2D Sprite Sheet Render Example - Sandbox 2D
+Sandbox2D is a sample class that utilizes the Skye game engine to render 2d sprites. Gameplay can be added in the `OnUpdate()` function, where each render pass is currently performed.
+Skye allows for rendering of 2d sprite, given a sprite sheet and coordinates on said spritesheet. The simple InmGui window shows the rendering statistics, as well as a selectable 2d texture that will draw on Left Mouse Click. My main goal for Skye was to learn the inner workings of a simple game engine in order to apply this knowledge to larger projects in UE5.
+![2D Sprites Render](https://github.com/mpro34/Skye/blob/main/Screenshots/Skye_2drender1.jpg)
