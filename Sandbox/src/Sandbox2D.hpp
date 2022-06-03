@@ -22,6 +22,7 @@ private:
 	Skye::Ref<Skye::Shader> m_FlatColorShader;
 	Skye::Ref<Skye::Texture2D> m_Texture;
 	Skye::Ref<Skye::Texture2D> m_SpriteSheet;
+	Skye::Ref<Skye::SubTexture2D> m_TextureCannon, m_TexturePlane, m_TextureTree;
 
 	glm::vec4 m_SquareColor = { 0.2f, 0.3f, 0.4f, 1.0f };
 

@@ -227,17 +227,10 @@ namespace Skye {
 	{
 		SK_PROFILE_FUNCTION();
 
-		// Texture location in spritesheet
-		constexpr float x = 18, y = 1;
-		constexpr float sheetWidth = 2944.0f, sheetHeight = 1664.0f;
-		constexpr float spriteWidth = 128.0f, spriteHeight = 128.0f;
-
 		if (s_2DData.QuadIndexCount >= Renderer2DData::MAX_INDICES)
 		{
 			FlushAndReset();
 		}
-
-		constexpr glm::vec4 color = { 1.0f, 1.0f, 1.0f, 1.0f };
 
 		float textureIndex = 0.0f;
 
@@ -262,29 +255,98 @@ namespace Skye {
 			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
 
 		s_2DData.QuadVertexBufferPtr->Position = transform * s_2DData.QuadVertexPositions[0];
-		s_2DData.QuadVertexBufferPtr->Color = color;
-		s_2DData.QuadVertexBufferPtr->TexCoord = { (x * spriteWidth) / sheetWidth, (y * spriteHeight) / sheetHeight };
+		s_2DData.QuadVertexBufferPtr->Color = tintColor;
+		s_2DData.QuadVertexBufferPtr->TexCoord = { 0.0f, 0.0f };
 		s_2DData.QuadVertexBufferPtr->TexIndex = textureIndex;
 		s_2DData.QuadVertexBufferPtr->TilingFactor = tileMultiplier;
 		s_2DData.QuadVertexBufferPtr++;
 
 		s_2DData.QuadVertexBufferPtr->Position = transform * s_2DData.QuadVertexPositions[1];
-		s_2DData.QuadVertexBufferPtr->Color = color;
-		s_2DData.QuadVertexBufferPtr->TexCoord = { ((x+1) * spriteWidth) / sheetWidth, (y * spriteHeight) / sheetHeight };
+		s_2DData.QuadVertexBufferPtr->Color = tintColor;
+		s_2DData.QuadVertexBufferPtr->TexCoord = { 1.0f, 0.0f };
 		s_2DData.QuadVertexBufferPtr->TexIndex = textureIndex;
 		s_2DData.QuadVertexBufferPtr->TilingFactor = tileMultiplier;
 		s_2DData.QuadVertexBufferPtr++;
 
 		s_2DData.QuadVertexBufferPtr->Position = transform * s_2DData.QuadVertexPositions[2];
-		s_2DData.QuadVertexBufferPtr->Color = color;
-		s_2DData.QuadVertexBufferPtr->TexCoord = { ((x+1) * spriteWidth) / sheetWidth, ((y+1) * spriteHeight) / sheetHeight };
+		s_2DData.QuadVertexBufferPtr->Color = tintColor;
+		s_2DData.QuadVertexBufferPtr->TexCoord = { 1.0f, 1.0f };
 		s_2DData.QuadVertexBufferPtr->TexIndex = textureIndex;
 		s_2DData.QuadVertexBufferPtr->TilingFactor = tileMultiplier;
 		s_2DData.QuadVertexBufferPtr++;
 
 		s_2DData.QuadVertexBufferPtr->Position = transform * s_2DData.QuadVertexPositions[3];
-		s_2DData.QuadVertexBufferPtr->Color = color;
-		s_2DData.QuadVertexBufferPtr->TexCoord = { (x * spriteWidth) / sheetWidth, ((y+1) * spriteHeight) / sheetHeight };
+		s_2DData.QuadVertexBufferPtr->Color = tintColor;
+		s_2DData.QuadVertexBufferPtr->TexCoord = { 0.0f, 1.0f };
+		s_2DData.QuadVertexBufferPtr->TexIndex = textureIndex;
+		s_2DData.QuadVertexBufferPtr->TilingFactor = tileMultiplier;
+		s_2DData.QuadVertexBufferPtr++;
+
+		s_2DData.QuadIndexCount += 6; // Add 6 more indices
+
+		// Increment stats
+		s_2DData.Stats.QuadCount++;
+	}
+
+	// DrawQuad specifically for subtextures
+	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const float rotation_angle, const Ref<SubTexture2D>& subtexture, float tileMultiplier, const glm::vec4& tintColor)
+	{
+		SK_PROFILE_FUNCTION();
+
+		const glm::vec2* textureCoords = subtexture->GetTexCoords();
+		const Ref<Texture2D> texture = subtexture->GetTexture();
+
+		if (s_2DData.QuadIndexCount >= Renderer2DData::MAX_INDICES)
+		{
+			FlushAndReset();
+		}
+
+		float textureIndex = 0.0f;
+
+		for (uint32_t i = 1; i < s_2DData.TexutreSlotIndex; i++)
+		{
+			if (*s_2DData.TextureSlots[i].get() == *texture.get())
+			{
+				textureIndex = (float)i;
+				break;
+			}
+		}
+
+		if (textureIndex == 0.0f)
+		{
+			textureIndex = (float)s_2DData.TexutreSlotIndex;
+			s_2DData.TextureSlots[s_2DData.TexutreSlotIndex] = texture;
+			s_2DData.TexutreSlotIndex++;
+		}
+
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
+			* glm::rotate(glm::mat4(1.0f), rotation_angle, { 0.0f, 0.0f, 1.0f })
+			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
+
+		s_2DData.QuadVertexBufferPtr->Position = transform * s_2DData.QuadVertexPositions[0];
+		s_2DData.QuadVertexBufferPtr->Color = tintColor;
+		s_2DData.QuadVertexBufferPtr->TexCoord = textureCoords[0];
+		s_2DData.QuadVertexBufferPtr->TexIndex = textureIndex;
+		s_2DData.QuadVertexBufferPtr->TilingFactor = tileMultiplier;
+		s_2DData.QuadVertexBufferPtr++;
+
+		s_2DData.QuadVertexBufferPtr->Position = transform * s_2DData.QuadVertexPositions[1];
+		s_2DData.QuadVertexBufferPtr->Color = tintColor;
+		s_2DData.QuadVertexBufferPtr->TexCoord = textureCoords[1];
+		s_2DData.QuadVertexBufferPtr->TexIndex = textureIndex;
+		s_2DData.QuadVertexBufferPtr->TilingFactor = tileMultiplier;
+		s_2DData.QuadVertexBufferPtr++;
+
+		s_2DData.QuadVertexBufferPtr->Position = transform * s_2DData.QuadVertexPositions[2];
+		s_2DData.QuadVertexBufferPtr->Color = tintColor;
+		s_2DData.QuadVertexBufferPtr->TexCoord = textureCoords[2];
+		s_2DData.QuadVertexBufferPtr->TexIndex = textureIndex;
+		s_2DData.QuadVertexBufferPtr->TilingFactor = tileMultiplier;
+		s_2DData.QuadVertexBufferPtr++;
+
+		s_2DData.QuadVertexBufferPtr->Position = transform * s_2DData.QuadVertexPositions[3];
+		s_2DData.QuadVertexBufferPtr->Color = tintColor;
+		s_2DData.QuadVertexBufferPtr->TexCoord = textureCoords[3];
 		s_2DData.QuadVertexBufferPtr->TexIndex = textureIndex;
 		s_2DData.QuadVertexBufferPtr->TilingFactor = tileMultiplier;
 		s_2DData.QuadVertexBufferPtr++;

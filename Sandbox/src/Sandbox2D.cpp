@@ -14,6 +14,11 @@ void Sandbox2D::OnAttach()
 {
 	m_Texture = Skye::Texture2D::Create("assets/textures/Checkerboard.png");
 	m_SpriteSheet = Skye::Texture2D::Create("assets/game/textures/towerDefense_tilesheet@2.png");
+
+	m_TextureCannon = Skye::SubTexture2D::CreateFromCoords(m_SpriteSheet, { 20, 2 }, { 128, 128 });
+	m_TextureTree = Skye::SubTexture2D::CreateFromCoords(m_SpriteSheet, { 15, 7 }, { 128, 128 });
+	m_TexturePlane = Skye::SubTexture2D::CreateFromCoords(m_SpriteSheet, { 18, 1 }, { 128, 128 });
+
 	// Initialize particle props
 	m_Particle.ColorBegin = { 254 / 255.0f, 212 / 255.0f, 123 / 255.0f, 1.0f };
 	m_Particle.ColorEnd = { 254 / 255.0f, 109 / 255.0f, 41 / 255.0f, 1.0f };
@@ -75,7 +80,9 @@ void Sandbox2D::OnUpdate(Skye::Timestep ts)
 #endif
 	// Draw sprite sheet
 	Skye::Renderer2D::BeginScene(m_CameraController.GetCamera());
-	Skye::Renderer2D::DrawQuad({ 0.0f, 0.0f, 0.2f }, { 1.0f, 1.0f }, glm::radians(0.0f), m_SpriteSheet); // Background texture
+	Skye::Renderer2D::DrawQuad({ 0.0f, 0.0f, 0.2f }, { 1.0f, 1.0f }, glm::radians(0.0f), m_TexturePlane);
+	Skye::Renderer2D::DrawQuad({ 1.0f, 0.0f, 0.2f }, { 1.0f, 1.0f }, glm::radians(0.0f), m_TextureCannon);
+	Skye::Renderer2D::DrawQuad({ 0.0f, 1.0f, 0.2f }, { 1.0f, 1.0f }, glm::radians(0.0f), m_TextureTree);
 	Skye::Renderer2D::EndScene();
 
 	// Draw Particles on mouse cursor
