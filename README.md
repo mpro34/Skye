@@ -13,7 +13,7 @@ Open the visual studio solution file in Skye.sln, run the project with F5.
 ##### Submodules
 In order to support external dependencies, I am using git submodules for the following, which all all stored in the /vendor sub-directory:
 - spdlog: A fast c++ logging library
-- GLFW: A helper library to support OpenGL renderering.
+- GLFW: A helper library to support OpenGL rendering.
 - imgui: A fast c++ gui library.
 - glm: An all-purpose 3D math library.
 
